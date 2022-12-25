@@ -2,20 +2,32 @@
 
 namespace Flashcard.Models
 {
-    [Table("users")]
-    public class Users
+    [Table("histories")]
+    public class Histories
     {
         // ID
         [Column("id")]
         public int Id { get; set; }
 
-        // ユーザ名
-        [Column("user_name")]
-        public string UserName { get; set; }
+        // ユーザID
+        [Column("user_id")]
+        public int UserId { get; set; }
 
-        // パスワード
-        [Column("password")]
-        public string Password { get; set; }
+        // 単語ID
+        [Column("word_id")]
+        public int WordId { get; set; }
+
+        // 回答日
+        [Column("study_date")]
+        public DateTime study_date { get; set; }
+
+        // 出題数
+        [Column("stydy_count")]
+        public int stydy_count { get; set; }
+
+        // 正解数
+        [Column("correct_answer_count")]
+        public int correct_answer_count { get; set; }
 
         // レコード作成者
         [Column("created_by")]

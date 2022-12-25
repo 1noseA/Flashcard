@@ -9,8 +9,8 @@ namespace Flashcard.Controllers
     {
         // 仮
         List<Users> users = new List<Users> {
-        new Users{UserId = 1, UserName = "hoge", Password = "1234"},
-        new Users{UserId = 2, UserName = "piyo", Password = "5678"}
+        new Users{Id = 1, UserName = "hoge", Password = "1234"},
+        new Users{Id = 2, UserName = "piyo", Password = "5678"}
     };
         public IActionResult Index()
         {

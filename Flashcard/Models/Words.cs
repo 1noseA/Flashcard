@@ -2,20 +2,24 @@
 
 namespace Flashcard.Models
 {
-    [Table("users")]
-    public class Users
+    [Table("words")]
+    public class Words
     {
         // ID
         [Column("id")]
         public int Id { get; set; }
 
-        // ユーザ名
-        [Column("user_name")]
-        public string UserName { get; set; }
+        // 単語
+        [Column("word")]
+        public string Word { get; set; }
 
-        // パスワード
-        [Column("password")]
-        public string Password { get; set; }
+        // 意味
+        [Column("meaning")]
+        public string Meaning { get; set; }
+
+        // ユーザID
+        [Column("user_id")]
+        public int UserId { get; set; }
 
         // レコード作成者
         [Column("created_by")]

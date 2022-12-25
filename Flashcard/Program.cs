@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Flashcard.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<FlashcardContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("FlashcardContext") ?? throw new InvalidOperationException("Connection string 'FlashcardContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
