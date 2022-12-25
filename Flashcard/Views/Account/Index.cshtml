@@ -1,0 +1,17 @@
+﻿@model Users
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        <form asp-antiforgery="true" asp-controller="Account" asp-action="Login">
+            User name: <input name="username" type="text" />
+            Password: <input name="password" type="password" />
+            <input name="submit" value="Login" type="submit" />
+            <input type="hidden" name="returnUrl" value="@Model" />
+        </form>
+    }
+</div>
