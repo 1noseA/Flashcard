@@ -9,6 +9,8 @@ namespace Flashcard.Controllers
 {
     public class AccountController : Controller
     {
+        AccountViewModel viewModel = new AccountViewModel();
+
         private readonly FlashcardContext _context;
 
         public AccountController(FlashcardContext context)
@@ -18,16 +20,16 @@ namespace Flashcard.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(viewModel);
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Login(AccountViewModel viewModel, string returnUrl = null)
         {
-            if (viewModel == null)
+            // もし入力エラーがあったら画面再表示して処理を中断する
+            if (!ModelState.IsValid)
             {
-                viewModel.ErrorMsg = "ユーザ名かパスワードが間違っています。";
                 return View("Index", viewModel);
             }
 
