@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  color: #333;
 }
 
 @media (min-width: 768px) {
@@ -15,4 +16,13 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+a {
+    color: #00a1e9;
+    text-decoration: none;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }

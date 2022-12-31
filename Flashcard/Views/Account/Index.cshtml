@@ -1,17 +1,27 @@
-﻿@model Users
+﻿@model AccountViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Login";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div class="content m-auto p-4" style="max-width:600px">
+    <h5 class="my-4">ログイン</h5>
+    <div class="p-5 border box-shadow">
     @{
         <form asp-antiforgery="true" asp-controller="Account" asp-action="Login">
-            User name: <input name="username" type="text" />
-            Password: <input name="password" type="password" />
-            <input name="submit" value="Login" type="submit" />
-            <input type="hidden" name="returnUrl" value="@Model" />
+            <div class="mb-3">
+                <label for="userName" class="form-label">ユーザ名</label>
+                <input type="text" name="UserName" id="userName" class="form-control box-shadow" />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">パスワード</label>
+                <input type="password" name="password" id="password" class="form-control box-shadow" />
+            </div>
+            <div class="text-center mt-4">
+                <input type="submit" value="ログイン" class="btnLogin box-shadow" />
+            </div>
+            @*<input type="hidden" name="returnUrl" value="@Model" />*@
         </form>
     }
+    </div>
 </div>
