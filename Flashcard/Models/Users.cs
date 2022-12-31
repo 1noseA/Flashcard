@@ -1,13 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Flashcard.Models
 {
     [Table("users")]
     public class Users
     {
-        // ID
-        [Column("id")]
-        public int Id { get; set; }
+        // ユーザID
+        [Key]
+        [Column("user_id")]
+        public int UserId { get; set; }
 
         // ユーザ名
         [Column("user_name")]
@@ -32,5 +35,10 @@ namespace Flashcard.Models
         // レコード更新日
         [Column("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        // ナビゲーションプロパティ
+        public List<Words> Words { get; set; }
+
+        public List<Histories> Histories { get; set; }
     }
 }
