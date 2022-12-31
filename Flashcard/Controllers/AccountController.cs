@@ -1,8 +1,7 @@
 ﻿using Flashcard.Data;
-using Flashcard.Models;
+using Flashcard.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Flashcard.Controllers

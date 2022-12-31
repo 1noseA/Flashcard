@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Flashcard.Models.Words>
+﻿@model Flashcard.ViewModels.WordListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,53 +13,30 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Word)
+                No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meaning)
+                単語
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users)
+                意味
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.WordList) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WordId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Word)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Meaning)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Users.UserId)
-            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.WordId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.WordId">Details</a> |

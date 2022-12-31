@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Flashcard.Models
+namespace Flashcard.ViewModels
 {
     public class AccountViewModel : CommonViewModel
     {

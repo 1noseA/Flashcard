@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Flashcard.Data;
 using Flashcard.Models;
+using Flashcard.ViewModels;
 
 namespace Flashcard.Controllers
 {
     public class WordsController : Controller
     {
         private readonly FlashcardContext _context;
+
+        WordListViewModel viewModel = new WordListViewModel();
 
         public WordsController(FlashcardContext context)
         {
@@ -23,7 +26,9 @@ namespace Flashcard.Controllers
         public async Task<IActionResult> Index()
         {
             var flashcardContext = _context.Words.Include(w => w.Users);
-            return View(await flashcardContext.ToListAsync());
+            viewModel.WordList = await flashcardContext.ToListAsync();
+
+            return View(viewModel);
         }
 
         // GET: Words/Details/5
