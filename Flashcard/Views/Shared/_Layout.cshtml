@@ -22,10 +22,10 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li class="nav-item ps-3">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Study" asp-action="Index">勉強する</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item ps-3">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Histories" asp-action="Index">履歴を見る</a>
                             </li>
                         }

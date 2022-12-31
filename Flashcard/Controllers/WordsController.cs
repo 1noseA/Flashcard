@@ -31,35 +31,14 @@ namespace Flashcard.Controllers
             return View(viewModel);
         }
 
-        // GET: Words/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Words == null)
-            {
-                return NotFound();
-            }
-
-            var words = await _context.Words
-                .Include(w => w.Users)
-                .FirstOrDefaultAsync(m => m.WordId == id);
-            if (words == null)
-            {
-                return NotFound();
-            }
-
-            return View(words);
-        }
-
         // GET: Words/Create
-        public IActionResult Create()
-        {
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+        //    return View();
+        //}
 
         // POST: Words/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("WordId,Word,Meaning,UserId,CreatedBy,CreatedAt,UpdatedBy,UpdatedAt")] Words words)

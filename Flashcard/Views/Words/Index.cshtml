@@ -1,48 +1,52 @@
 ﻿@model Flashcard.ViewModels.WordListViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "WordList";
 }
 
-<h1>Index</h1>
+<div class="content m-auto p-4" style="max-width:900px">
+    <h5 class="my-4">単語一覧</h5>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                No
-            </th>
-            <th>
-                単語
-            </th>
-            <th>
-                意味
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.WordList) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WordId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Word)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Meaning)
-            </td>
+    <!-- 新規追加 -->
+
+
+    <!-- 一覧 -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="w-10">
+                    No
+                </th>
+                <th class="w-30">
+                    単語
+                </th>
+                <th class="w-40">
+                    意味
+                </th>
+                <th class="w-20"></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.WordList) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WordId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Word)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meaning)
+                </td>
             
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.WordId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.WordId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.WordId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <td>
+                    <div class="text-end">
+                        <a asp-action="Edit" asp-route-id="@item.WordId">編集</a> |
+                        <a asp-action="Delete" asp-route-id="@item.WordId">削除</a>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
