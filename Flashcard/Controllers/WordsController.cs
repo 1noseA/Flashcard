@@ -16,6 +16,7 @@ namespace Flashcard.Controllers
         private readonly Claim _claim;
 
         WordListViewModel viewModel = new WordListViewModel();
+        Words words = new Words();
 
         public WordsController(FlashcardContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -24,7 +25,7 @@ namespace Flashcard.Controllers
         }
 
         // GET: Words
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(WordListViewModel viewModel)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
@@ -35,7 +36,8 @@ namespace Flashcard.Controllers
             var flashcardContext = _context.Words
                 .Where(w => w.UserId == userId);
             viewModel.WordList = await flashcardContext.ToListAsync();
-            viewModel.UserId = userId;
+            words.UserId = userId;
+            viewModel.Words = words;
             return View(viewModel);
         }
 
@@ -54,7 +56,7 @@ namespace Flashcard.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.ErrorMsg = "追加に失敗しました。";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", viewModel);
             }
             
             // DBへ登録する

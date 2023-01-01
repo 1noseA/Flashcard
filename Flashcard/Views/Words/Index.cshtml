@@ -18,20 +18,21 @@
             }
         }
         <div class="row mb-4 g-3 align-items-center">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-4">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
                 <div class="invalid-feedback" style="display: block;">
-                    <span asp-validation-for="Word"></span>
+                    <span asp-validation-for="Words.Word"></span>
                 </div>
             </div>
             <div class="col-6">
                 <input type="text" name="Meaning" class="form-control box-shadow" placeholder="意味" required />
                 <div class="invalid-feedback" style="display: block;">
-                    <span asp-validation-for="Meaning"></span>
+                    <span asp-validation-for="Words.Meaning"></span>
                 </div>
             </div>
             <div class="col-2">
-                <input type="hidden" name="UserId" value="@Model.UserId" />
+                <input type="hidden" name="UserId" value="@Model.Words.UserId" />
                 <input type="submit" value="追加" class="btnCommon btnCreate box-shadow" />
             </div>
         </div>
