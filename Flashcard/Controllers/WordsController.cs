@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Flashcard.Data;
 using Flashcard.Models;
 using Flashcard.ViewModels;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace Flashcard.Controllers
 {
@@ -35,8 +31,11 @@ namespace Flashcard.Controllers
             {
                 return RedirectToAction("Index", "Account");
             }
-            var flashcardContext = _context.Words.Include(w => w.Users);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var flashcardContext = _context.Words
+                .Where(w => w.UserId == userId);
             viewModel.WordList = await flashcardContext.ToListAsync();
+            viewModel.UserId = userId;
             return View(viewModel);
         }
 

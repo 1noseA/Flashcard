@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <input type="hidden" name="UserId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" />
+                <input type="hidden" name="UserId" value="@Model.UserId" />
                 <input type="submit" value="追加" class="btnCommon btnCreate box-shadow" />
             </div>
         </div>
