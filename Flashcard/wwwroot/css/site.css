@@ -16,6 +16,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  /*background-color: #f9eee8;*/
 }
 
 a {
@@ -45,4 +46,46 @@ a {
 
 .w-50 {
     width: 50%;
+}
+
+.text-white {
+    color: #FFF;
+}
+
+.text-black {
+    color: #333;
+}
+
+.form-control {
+    border-color: #333 !important;
+}
+
+    .form-control:focus {
+        box-shadow: none !important;
+    }
+
+/*nav.navbar, footer {
+    background-color: #c2a5b0 !important;
+}*/
+.navbar-brand {
+    /*color: #61425e !important;*/
+    font-weight: bold;
+}
+
+.btnCommon {
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    background-color: #61425e;
+    color: #FFF;
+    padding: 0.5em;
+    margin-bottom: 3px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
 }
