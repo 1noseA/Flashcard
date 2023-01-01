@@ -34,6 +34,7 @@
                     <ul class="nav navbar-nav navbar-right pe-5">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li>@User.Identity.Name</li>
                             <li><a asp-area="" asp-controller="Account" asp-action="Logout" class="text-black">ログアウト</a></li>
                         }
                         else

@@ -1,4 +1,5 @@
 ﻿using Flashcard.Data;
+using Flashcard.Models;
 using Flashcard.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,10 @@ namespace Flashcard.Controllers
         public IActionResult Index()
         {
             // 認証済みであれば単語一覧画面へ遷移する
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction(nameof(WordsController.Index), "Words");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction(nameof(WordsController.Index), "Words");
+            //}
             return View(viewModel);
         }
 
@@ -57,6 +58,7 @@ namespace Flashcard.Controllers
 
             // Cookies 認証スキームで新しい ClaimsIdentity を作成し、ユーザー名を追加します。
             var identity = new ClaimsIdentity("MyCookieAuthenticationScheme");
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, lookupUser.UserId.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Name, lookupUser.UserName));
 
             // クッキー認証スキームと、上の数行で作成されたIDから作成された新しい ClaimsPrincipal を渡します。

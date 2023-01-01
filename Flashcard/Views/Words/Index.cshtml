@@ -9,7 +9,14 @@
 
     <!-- 新規追加 -->
     <form asp-action="Create" class="needs-validation" novalidate>
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @{
+            if (!string.IsNullOrEmpty(Model.ErrorMsg))
+            {
+                <div class="invalid-feedback mb-3" style="display: block;">
+                    @Model.ErrorMsg
+                </div>
+            }
+        }
         <div class="row mb-4 g-3 align-items-center">
             <div class="col-4">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
@@ -24,7 +31,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <input type="hidden" name="UserId" />
+                <input type="hidden" name="UserId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" />
                 <input type="submit" value="追加" class="btnCommon btnCreate box-shadow" />
             </div>
         </div>

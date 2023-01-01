@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Flashcard.Data;
 using Flashcard.Models;
 using Flashcard.ViewModels;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Flashcard.Controllers
 {
@@ -15,42 +17,51 @@ namespace Flashcard.Controllers
     {
         private readonly FlashcardContext _context;
 
+        private readonly Claim _claim;
+
         WordListViewModel viewModel = new WordListViewModel();
 
-        public WordsController(FlashcardContext context)
+        public WordsController(FlashcardContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _claim = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         }
 
         // GET: Words
         public async Task<IActionResult> Index()
         {
+            // ログインしていなければログイン画面へ
+            if (_claim == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
             var flashcardContext = _context.Words.Include(w => w.Users);
             viewModel.WordList = await flashcardContext.ToListAsync();
-
             return View(viewModel);
         }
-
-        // GET: Words/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
-        //    return View();
-        //}
 
         // POST: Words/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("WordId,Word,Meaning,UserId,CreatedBy,CreatedAt,UpdatedBy,UpdatedAt")] Words words)
         {
-            if (ModelState.IsValid)
+            // ログインしていなければログイン画面へ
+            if (_claim == null)
             {
-                _context.Add(words);
-                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Account");
+            }
+
+            // もし入力エラーがあったら画面再表示して処理を中断する
+            if (!ModelState.IsValid)
+            {
+                viewModel.ErrorMsg = "追加に失敗しました。";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", words.UserId);
-            return View(words);
+            
+            // DBへ登録する
+            _context.Add(words);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Words/Edit/5

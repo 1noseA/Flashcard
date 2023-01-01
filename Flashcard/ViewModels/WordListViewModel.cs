@@ -15,8 +15,8 @@ namespace Flashcard.ViewModels
         [Required(ErrorMessage = "意味を入力してください")]
         public string Meaning { get; set; }
 
-        // ユーザ名
-        [Display(Name = "ユーザ名")]
+        // ユーザID
+        [Display(Name = "ユーザID")]
         public int UserId { get; set; }
 
         // 単語リスト
