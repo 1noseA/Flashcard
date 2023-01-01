@@ -18,7 +18,7 @@
             }
         }
         <div class="row mb-4 g-3 align-items-center">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
             <div class="col-4">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
                 <div class="invalid-feedback" style="display: block;">
@@ -70,7 +70,9 @@
                 <td>
                     <div class="text-end">
                         <a asp-action="Edit" asp-route-id="@item.WordId">編集</a> |
-                        <a asp-action="Delete" asp-route-id="@item.WordId">削除</a>
+                        <form asp-action="Delete" asp-route-id="@item.WordId">
+                            <input type="submit" value="削除" class="btn text-link" id="delete" onclick="return confirm('削除してよろしいですか');" />
+                        </form>
                     </div>
                 </td>
             </tr>

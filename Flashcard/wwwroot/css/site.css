@@ -56,6 +56,10 @@ a {
     color: #333;
 }
 
+.text-link {
+    color: #00a1e9;
+}
+
 .form-control {
     border-color: #333 !important;
 }
@@ -80,6 +84,10 @@ a {
     color: #FFF;
     padding: 0.5em;
     margin-bottom: 3px;
+}
+
+.btn:focus {
+    box-shadow: none !important;
 }
 
 .footer {

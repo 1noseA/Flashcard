@@ -118,33 +118,16 @@ namespace Flashcard.Controllers
             return View(words);
         }
 
-        // GET: Words/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Words == null)
-            {
-                return NotFound();
-            }
-
-            var words = await _context.Words
-                .Include(w => w.Users)
-                .FirstOrDefaultAsync(m => m.WordId == id);
-            if (words == null)
-            {
-                return NotFound();
-            }
-
-            return View(words);
-        }
-
         // POST: Words/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (_context.Words == null)
             {
-                return Problem("Entity set 'FlashcardContext.Words'  is null.");
+                // return Problem("Entity set 'FlashcardContext.Words'  is null.");
+                viewModel.ErrorMsg = "削除に失敗しました。";
+                return RedirectToAction("Index", viewModel);
             }
             var words = await _context.Words.FindAsync(id);
             if (words != null)
