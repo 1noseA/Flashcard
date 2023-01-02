@@ -4,6 +4,9 @@
     ViewData["Title"] = "WordList";
 }
 
+<link rel="stylesheet" href="~/css/Words/Index.css" asp-append-version="true" />
+<script src="~/js/Words/Index.js" asp-append-version="true"></script>
+
 <div class="content m-auto p-4" style="max-width:900px">
     <h5 class="my-4">単語一覧</h5>
 
@@ -45,13 +48,14 @@
                 <th class="w-10">
                     No
                 </th>
-                <th class="w-30">
+                <th class="w-20">
                     単語
                 </th>
                 <th class="w-40">
                     意味
                 </th>
                 <th class="w-20"></th>
+                <th class="w-10"></th>
             </tr>
         </thead>
         <tbody>
@@ -60,21 +64,37 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.WordId)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Word)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Meaning)
-                </td>
-            
-                <td>
-                    <div class="text-end">
-                        <a asp-action="Edit" asp-route-id="@item.WordId">編集</a> |
-                        <form asp-action="Delete" asp-route-id="@item.WordId">
-                            <input type="submit" value="削除" class="btn text-link" id="delete" onclick="return confirm('削除してよろしいですか');" />
-                        </form>
-                    </div>
-                </td>
+                <form asp-action="Edit" asp-route-id="@item.WordId" method="post">
+                    <td>
+                        <span class="word">
+                            @Html.DisplayFor(modelItem => item.Word)
+                        </span>
+                        <span class="wordForm">
+                            <input asp-for="@item.Word" class="form-control" name="Word" />
+                        </span>
+                    </td>
+                    <td>
+                        <span class="meaning">
+                            @Html.DisplayFor(modelItem => item.Meaning)
+                        </span>
+                        <span class="meaningForm">
+                            <input asp-for="@item.Meaning" class="form-control" name="Meaning" />
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <span class="btnUpdate">
+                            <input type="hidden" asp-for="@item.WordId" name="WordId" />
+                            <input type="hidden" name="UserId" value="@Model.Words.UserId" />
+                            <input type="submit" value="更新" class="btn text-link" />&nbsp;|&nbsp;
+                        </span>
+                        <a href="#" class="edit">編集</a>
+                    </td>
+                </form>
+                <form asp-action="Delete" asp-route-id="@item.WordId">
+                    <td class="text-center">
+                        <input type="submit" value="削除" class="btn text-link" onclick="return confirm('削除してよろしいですか');" />
+                    </td>
+                </form>
             </tr>
         }
         </tbody>

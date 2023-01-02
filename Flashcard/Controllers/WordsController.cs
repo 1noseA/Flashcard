@@ -44,7 +44,7 @@ namespace Flashcard.Controllers
         // POST: Words/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WordId,Word,Meaning,UserId,CreatedBy,CreatedAt,UpdatedBy,UpdatedAt")] Words words)
+        public async Task<IActionResult> Create([Bind("WordId,Word,Meaning,UserId")] Words words)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
@@ -60,26 +60,11 @@ namespace Flashcard.Controllers
             }
             
             // DBへ登録する
+            words.CreatedBy = User.Identity.Name;
+            words.CreatedAt = DateTime.UtcNow;
             _context.Add(words);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        // GET: Words/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Words == null)
-            {
-                return NotFound();
-            }
-
-            var words = await _context.Words.FindAsync(id);
-            if (words == null)
-            {
-                return NotFound();
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", words.UserId);
-            return View(words);
         }
 
         // POST: Words/Edit/5
@@ -87,25 +72,45 @@ namespace Flashcard.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WordId,Word,Meaning,UserId,CreatedBy,CreatedAt,UpdatedBy,UpdatedAt")] Words words)
+        public async Task<IActionResult> Edit(int id, [Bind("WordId,Word,Meaning,UserId")] Words words)
         {
-            if (id != words.WordId)
+            // ログインしていなければログイン画面へ
+            if (_claim == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "Account");
             }
 
-            if (ModelState.IsValid)
+            if (id != words.WordId)
+            {
+                viewModel.ErrorMsg = "更新に失敗しました。";
+                return RedirectToAction("Index", viewModel);
+            }
+
+            // もし入力エラーがあったら画面再表示して処理を中断する
+            if (!ModelState.IsValid)
+            {
+                viewModel.ErrorMsg = "更新に失敗しました。";
+                return RedirectToAction("Index", viewModel);
+            }
+            else
             {
                 try
                 {
-                    _context.Update(words);
+                    var updateData = _context.Words.Find(id);
+                    updateData.Word = words.Word;
+                    updateData.Meaning = words.Meaning;
+                    //updateData.CreatedAt = updateData.CreatedAt.ToUniversalTime();
+                    updateData.UpdatedBy = User.Identity.Name;
+                    updateData.UpdatedAt = DateTime.UtcNow;
+                    _context.Update(updateData);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!WordsExists(words.WordId))
                     {
-                        return NotFound();
+                        viewModel.ErrorMsg = "更新に失敗しました。";
+                        return RedirectToAction("Index", viewModel);
                     }
                     else
                     {
@@ -114,8 +119,6 @@ namespace Flashcard.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", words.UserId);
-            return View(words);
         }
 
         // POST: Words/Delete/5
@@ -123,9 +126,14 @@ namespace Flashcard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            // ログインしていなければログイン画面へ
+            if (_claim == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             if (_context.Words == null)
             {
-                // return Problem("Entity set 'FlashcardContext.Words'  is null.");
                 viewModel.ErrorMsg = "削除に失敗しました。";
                 return RedirectToAction("Index", viewModel);
             }

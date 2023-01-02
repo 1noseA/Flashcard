@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Flashcard.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body>
     <header>
@@ -34,12 +37,16 @@
                     <ul class="nav navbar-nav navbar-right pe-5">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li>@User.Identity.Name</li>
-                            <li><a asp-area="" asp-controller="Account" asp-action="Logout" class="text-black">ログアウト</a></li>
+                            <li class="nav-item ps-3"><span>@User.Identity.Name</span>さん</li>
+                            <li class="nav-item ps-3">
+                                <a asp-area="" asp-controller="Account" asp-action="Logout" class="text-black">ログアウト</a>
+                            </li>
                         }
                         else
                         {
-                            <li><a asp-area="" asp-controller="Account" asp-action="#" class="text-black">新規登録</a></li>
+                            <li class="nav-item ps-3">
+                                <a asp-area="" asp-controller="Account" asp-action="#" class="text-black">新規登録</a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -57,9 +64,6 @@
             &copy; 2022 - Flashcard -
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
