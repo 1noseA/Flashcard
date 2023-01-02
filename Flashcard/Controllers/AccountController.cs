@@ -30,10 +30,16 @@ namespace Flashcard.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Login(AccountViewModel viewModel, string returnUrl = null)
+        public async Task<IActionResult> Login(AccountViewModel viewModel, string btnName)
         {
-            // もし入力エラーがあったら画面再表示して処理を中断する
-            if (!ModelState.IsValid)
+            // テストログインボタン押下の場合ログインを許す
+            if (btnName == "テストログイン")
+            {
+                viewModel.UserName = "user1";
+                viewModel.Password = "password1";
+            }
+            // 入力エラーがあったら画面再表示して処理を中断する
+            else if (!ModelState.IsValid)
             {
                 return View("Index", viewModel);
             }

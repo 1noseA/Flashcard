@@ -52,7 +52,7 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // もし入力エラーがあったら画面再表示して処理を中断する
+            // 入力エラーがあったら画面再表示して処理を中断する
             if (!ModelState.IsValid)
             {
                 viewModel.ErrorMsg = "追加に失敗しました。";
@@ -86,7 +86,7 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", viewModel);
             }
 
-            // もし入力エラーがあったら画面再表示して処理を中断する
+            // 入力エラーがあったら画面再表示して処理を中断する
             if (!ModelState.IsValid)
             {
                 viewModel.ErrorMsg = "更新に失敗しました。";

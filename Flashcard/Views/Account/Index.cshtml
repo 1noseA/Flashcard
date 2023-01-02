@@ -28,8 +28,13 @@
                         <span asp-validation-for="Password"></span>
                     </div>
                 </div>
+                <div class="text-center mt-5">
+                    <input type="submit" value="ログイン" class="btnCommon btnLogin box-shadow" name="btnName" />
+                </div>
                 <div class="text-center mt-4">
-                    <input type="submit" value="ログイン" class="btnCommon btnLogin box-shadow" />
+                    @*<input type="hidden" name="testName" value="user1" />
+                    <input type="hidden" name="testPass" value="password1" />*@
+                    <input type="submit" value="テストログイン" class="btnTest box-shadow" name="btnName" />
                 </div>
                 @*<input type="hidden" name="returnUrl" value="@Model" />*@
             </form>

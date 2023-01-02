@@ -90,6 +90,20 @@ a {
     box-shadow: none !important;
 }
 
+.btnLogin {
+    width: 80%;
+}
+
+.btnTest {
+    width: 80%;
+    border-radius: 8px;
+    border: none;
+    background-color: #666;
+    color: #FFF;
+    padding: 0.5em;
+    margin-bottom: 3px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
