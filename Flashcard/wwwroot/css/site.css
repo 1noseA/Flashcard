@@ -44,8 +44,8 @@ a {
     width: 40%;
 }
 
-.w-50 {
-    width: 50%;
+.w-80 {
+    width: 80%;
 }
 
 .text-white {
@@ -77,7 +77,6 @@ a {
 }
 
 .btnCommon {
-    width: 100%;
     border-radius: 8px;
     border: none;
     background-color: #61425e;
@@ -90,12 +89,7 @@ a {
     box-shadow: none !important;
 }
 
-.btnLogin {
-    width: 80%;
-}
-
 .btnTest {
-    width: 80%;
     border-radius: 8px;
     border: none;
     background-color: #666;
