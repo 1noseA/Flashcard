@@ -34,7 +34,8 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // 問題番号・正解数を初期化する
+            // 初期化する
+            TempData.Remove("ResultList");
             viewModel.QuestionNo = 1;
             viewModel.CorrectAnswerCount = 0;
             // 保存する
@@ -46,7 +47,7 @@ namespace Flashcard.Controllers
             var flashcardContext = _context.Words
                 .Where(w => w.UserId == userId)
                 .OrderBy(x => Guid.NewGuid()) // シャッフルする
-                .Take(10); // 10件取得
+                .Take(2); // 10件取得 【TODO】10に戻す
             viewModel.QuestionList = await flashcardContext.ToListAsync();
 
             // 出題リストを保存する
@@ -86,6 +87,27 @@ namespace Flashcard.Controllers
             else
             {
                 viewModel.Judgement = "×";
+            }
+
+            // 結果リストに格納する
+            List<ResultViewModel> resultList = new List<ResultViewModel>();
+            ResultViewModel result = new ResultViewModel();
+            result.QuestionNo = viewModel.QuestionNo;
+            result.Meaning = viewModel.QuestionList[0].Meaning;
+            result.MyAnswer = viewModel.MyAnswer;
+            result.CorrectAnswer = viewModel.CorrectAnswer;
+            result.Judgement = viewModel.Judgement;
+            // すでに結果リストがあったら追加する
+            if (TempData["ResultList"] != null)
+            {
+                resultList = JsonConvert.DeserializeObject<List<ResultViewModel>>((string)TempData["ResultList"]);
+                resultList.Add(result);
+                TempData["ResultList"] = JsonConvert.SerializeObject(resultList);
+            }
+            else
+            {
+                resultList.Add(result);
+                TempData["ResultList"] = JsonConvert.SerializeObject(resultList);
             }
 
             return View("Index", viewModel);

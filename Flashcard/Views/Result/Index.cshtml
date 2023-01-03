@@ -1,0 +1,50 @@
+﻿@model Flashcard.ViewModels.StudyViewModel
+
+@{
+    ViewData["Title"] = "Result";
+}
+
+<div class="content m-auto p-4" style="max-width:900px">
+    <div class="p-5 border box-shadow">
+        <h5 class="text-center">結果</h5>
+        <div class="my-4"><span>@Model.CorrectAnswerCount</span>問正解！！</div>
+        <table class="table table-striped table-hover mb-5">
+            <thead>
+                <tr>
+                    <th class="w-10">No</th>
+                    <th class="w-40">問題</th>
+                    <th class="w-20">回答</th>
+                    <th class="w-20">正答</th>
+                    <th class="w-10 text-center">判定</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ResultList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuestionNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Meaning)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MyAnswer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CorrectAnswer)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Judgement)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row d-flex justify-content-center">
+            <input type="button" value="もう一度やる" class="btnLight w-30 box-shadow m-2" onclick="location.href ='./Study'" />
+            <input type="button" value="履歴を見る" class="btnLight w-30 box-shadow m-2" onclick="location.href ='./Histories'" />
+            <input type="button" value="TOPに戻る" class="btnLight w-30 box-shadow m-2" onclick="location.href ='./'" />
+        </div>
+    </div>
+</div>

@@ -2,12 +2,9 @@
 
 namespace Flashcard.ViewModels
 {
-    public class StudyViewModel : CommonViewModel
+    public class ResultViewModel : CommonViewModel
     {
         
-        // 出題リスト
-        public List<Words> QuestionList { get; set; }
-
         // 問題番号
         public int QuestionNo { get; set; }
 
@@ -22,12 +19,6 @@ namespace Flashcard.ViewModels
         
         // 判定
         public string Judgement { get; set; }
-
-        // 正解数
-        public int CorrectAnswerCount { get; set; }
-
-        // 結果リスト
-        public List<ResultViewModel> ResultList { get; set; }
 
     }
 }
