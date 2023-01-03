@@ -5,6 +5,7 @@ using Flashcard.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Flashcard.Controllers
 {
@@ -36,6 +37,9 @@ namespace Flashcard.Controllers
             // 問題番号・正解数を初期化する
             viewModel.QuestionNo = 1;
             viewModel.CorrectAnswerCount = 0;
+            // 保存する
+            TempData["QuestionNo"] = viewModel.QuestionNo;
+            TempData["CorrectAnswerCount"] = viewModel.CorrectAnswerCount;
 
             // ログインユーザに紐づく出題リストを作成する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -63,24 +67,28 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // 出題リスト取得
-            viewModel.QuestionList = (List<Words>)TempData["QuestionList"];
+            // 保存データを取得
+            viewModel.QuestionNo = (int)TempData["QuestionNo"];
+            viewModel.CorrectAnswerCount = (int)TempData["CorrectAnswerCount"];
+            viewModel.QuestionList = JsonConvert.DeserializeObject<List<Words>>((string)TempData["QuestionList"]);
+            TempData.Keep();
+
             // 正答取得
             viewModel.CorrectAnswer = viewModel.QuestionList[0].Word;
-
             // 答え合わせする
             if (viewModel.MyAnswer == viewModel.CorrectAnswer)
             {
                 viewModel.Judgement = "〇";
                 // 正答数を加算する
                 viewModel.CorrectAnswerCount++;
+                TempData["CorrectAnswerCount"] = viewModel.CorrectAnswerCount;
             }
             else
             {
                 viewModel.Judgement = "×";
             }
 
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
         // 次画面遷移処理
@@ -93,25 +101,29 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // 初期化する
-            viewModel.MyAnswer = "";
-            viewModel.CorrectAnswer = "";
-            viewModel.Judgement = "";
+            // 保存データを取得
+            viewModel.QuestionNo = (int)TempData["QuestionNo"];
+            viewModel.CorrectAnswerCount = (int)TempData["CorrectAnswerCount"];
+            viewModel.QuestionList = JsonConvert.DeserializeObject<List<Words>>((string)TempData["QuestionList"]);
+            TempData.Keep();
 
-            // 出題リスト取得
-            viewModel.QuestionList = (List<Words>)TempData["QuestionList"];
             // 出題済みの問題を出題リストから除く
             viewModel.QuestionList.Remove(viewModel.QuestionList[0]);
 
-            // 出題リストがnullだったら結果画面に遷移する
-            if (viewModel.QuestionList == null || viewModel.QuestionList.Count < 1)
+            // 出題リストが0だったら結果画面に遷移する
+            if (viewModel.QuestionList.Count < 1)
             {
                 return RedirectToAction("Index", "Result");
             }
 
+            // 出題リストを保存する
+            TempData["QuestionList"] = JsonConvert.SerializeObject(viewModel.QuestionList);
+
             // 問題番号を加算する
             viewModel.QuestionNo++;
-            return View(viewModel);
+            TempData["QuestionNo"] = viewModel.QuestionNo;
+
+            return View("Index", viewModel);
         }
     }
 }

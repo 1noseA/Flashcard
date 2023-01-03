@@ -56,8 +56,20 @@ a {
     color: #333;
 }
 
+.text-red {
+    color: red;
+}
+
 .text-link {
     color: #00a1e9;
+}
+
+.font-120 {
+    font-size: 120%;
+}
+
+.font-150 {
+    font-size: 150%;
 }
 
 .form-control {
@@ -89,7 +101,7 @@ a {
     box-shadow: none !important;
 }
 
-.btnTest {
+.btnLight {
     border-radius: 8px;
     border: none;
     background-color: #666;
