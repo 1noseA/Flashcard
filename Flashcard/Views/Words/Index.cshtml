@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/Words/Index.css" asp-append-version="true" />
 <script src="~/js/Words/Index.js" asp-append-version="true"></script>
 
-<div class="content m-auto p-4" style="max-width:900px">
+<div class="content m-auto p-4" style="max-width:1200px">
     <h5 class="my-4">単語一覧</h5>
 
     <!-- 新規追加 -->
@@ -20,15 +20,15 @@
                 </div>
             }
         }
-        <div class="row mb-4 g-3 align-items-center">
+        <div class="row mb-5 g-3 align-items-center">
             @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-            <div class="col-4">
+            <div class="col-3">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
                 <div class="invalid-feedback" style="display: block;">
                     <span asp-validation-for="Words.Word"></span>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 <input type="text" name="Meaning" class="form-control box-shadow" placeholder="意味" required />
                 <div class="invalid-feedback" style="display: block;">
                     <span asp-validation-for="Words.Meaning"></span>
