@@ -32,7 +32,7 @@ namespace Flashcard.Models
         public string CreatedBy { get; set; }
 
         // レコード作成日
-        [Column("created_at")]
+        [Column("created_at", TypeName = "timestamp(0)")]
         public DateTime? CreatedAt { get; set; }
 
         // レコード更新者
@@ -40,12 +40,10 @@ namespace Flashcard.Models
         public string UpdatedBy { get; set; }
 
         // レコード更新日
-        [Column("updated_at")]
+        [Column("updated_at", TypeName = "timestamp(0)")]
         public DateTime? UpdatedAt { get; set; }
 
         // ナビゲーションプロパティ
         public Users Users { get; set; }
-
-        public List<Histories> Histories { get; set; }
     }
 }

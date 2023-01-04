@@ -11,32 +11,29 @@ namespace Flashcard.Models
         [Column("history_id")]
         public int HistoryId { get; set; }
 
-        // ユーザID
+        // ユーザID(FK)
         [Column("user_id")]
         public int UserId { get; set; }
 
-        // 単語ID
-        [Column("word_id")]
-        public int WordId { get; set; }
-
-        // 回答日
-        [Column("study_date")]
-        public DateTime study_date { get; set; }
+        // 学習日時
+        [Column("study_date", TypeName = "timestamp(0)")]
+        [DisplayFormat(DataFormatString = "{0:YYYY/MM/DD HH24:MI:SS}", ApplyFormatInEditMode = true)]
+        public DateTime StudyDate { get; set; }
 
         // 出題数
         [Column("stydy_count")]
-        public int stydy_count { get; set; }
+        public int StydyCount { get; set; }
 
-        // 正解数
+        // 正答数
         [Column("correct_answer_count")]
-        public int correct_answer_count { get; set; }
+        public int CorrectAnswerCount { get; set; }
 
         // レコード作成者
         [Column("created_by")]
         public string CreatedBy { get; set; }
 
         // レコード作成日
-        [Column("created_at")]
+        [Column("created_at", TypeName = "timestamp(0)")]
         public DateTime? CreatedAt { get; set; }
 
         // レコード更新者
@@ -44,12 +41,10 @@ namespace Flashcard.Models
         public string UpdatedBy { get; set; }
 
         // レコード更新日
-        [Column("updated_at")]
+        [Column("updated_at", TypeName = "timestamp(0)")]
         public DateTime? UpdatedAt { get; set; }
 
         // ナビゲーションプロパティ
         public Users Users { get; set; }
-
-        public Words Words { get; set; }
     }
 }
