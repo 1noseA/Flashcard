@@ -4,6 +4,7 @@
     ViewData["Title"] = "Study";
 }
 
+@*<link rel="stylesheet" href="~/css/Study/Index.css" asp-append-version="true" />*@
 @*<script src="~/js/Study/Index.js" asp-append-version="true"></script>*@
 
 <div class="content m-auto p-4" style="max-width:600px">
@@ -12,9 +13,9 @@
         @{
             if (!string.IsNullOrEmpty(Model.ErrorMsg))
             {
-                <div class="invalid-feedback mb-3" style="display: block;">
-                    @Model.ErrorMsg
-                </div>
+                        <div class="invalid-feedback mb-3" style="display: block;">
+                            @Model.ErrorMsg
+                        </div>
             }
         }
             
@@ -23,11 +24,11 @@
                 <div class="mb-5">
                     <span>@Model.QuestionList[0].Meaning</span>
                 </div>
-                <div class="mb-5">
+                <div>
                     <input type="text" name="MyAnswer" value="@Model.MyAnswer" class="form-control myAnswer w-80 box-shadow mx-auto" placeholder="回答"
                         @{
                            if (Model.ChekedFlg) {
-                               @:disabled="disabled"
+                                       @:disabled="disabled"
                            }
                         } 
                     />
@@ -36,35 +37,40 @@
                     </div>
                 </div>
                 @{
-                    if (Model.ChekedFlg) {
-
+                    // チェック済みでなかったら
+                    if (!Model.ChekedFlg) {
+                                <div class="text-center mt-5">
+                                    <input type="submit" value="アンサーチェック！" class="btnCommon btnAnswer w-80 box-shadow" id="btnAnswer" />
+                                </div>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.CorrectAnswer) && !string.IsNullOrEmpty(Model.Judgement))
+                    {
+                        <div class="row w-80 m-auto">
+                            @if (Model.Judgement == "〇") {
+                                <div class="mt-2 mb-4 p-1 alert alert-success">
+                                    <span class="font-150 text-red">@Model.Judgement</span>
+                                    <span>答えは「@Model.CorrectAnswer」</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mt-2 mb-4 p-1 alert alert-danger">
+                                    <span class="font-150 text-red">@Model.Judgement</span>
+                                    <span>答えは「@Model.CorrectAnswer」</span>
+                                </div>
+                            }
+                                
+                            <div class="text-center">
+                                <input type="button" value="次へ" class="btnLight w-100 box-shadow" onclick="location.href ='./Next'" />
+                            </div>
+                        </div>
                     }
                 }
-                <div class="text-center">
-                    <input type="submit" value="アンサーチェック！" class="btnCommon btnAnswer w-80 box-shadow" id="btnAnswer"
-                    @{
-                           if (Model.ChekedFlg) {
-                               @:disabled="disabled"
-                           }
-                    }
-                    />
-                </div>
             </div>
         </form>
 
         @{
-            if (!string.IsNullOrEmpty(Model.CorrectAnswer) && !string.IsNullOrEmpty(Model.Judgement))
-            {
-                <div class="row w-80 m-auto">
-                    <div class="my-4">
-                        <span class="font-150 text-red">@Model.Judgement</span>
-                        <span>答えは「@Model.CorrectAnswer」</span>
-                    </div>
-                    <div class="text-center">
-                        <input type="button" value="次へ" class="btnLight w-100 box-shadow" onclick="location.href ='./Next'" />
-                    </div>
-                </div>
-            }
+            
         }
     </div>
 </div>

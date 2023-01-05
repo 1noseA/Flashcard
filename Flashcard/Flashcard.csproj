@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\Study\" />
     <Folder Include="wwwroot\js\Study\" />
   </ItemGroup>
 
