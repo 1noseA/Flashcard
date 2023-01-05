@@ -88,8 +88,6 @@ namespace Flashcard.Controllers
             {
                 viewModel.Judgement = "×";
             }
-            // 回答を再設定する
-            viewModel.MyAnswer = viewModel.MyAnswer;
             // チェック済みにする
             viewModel.ChekedFlg = true;
 

@@ -24,7 +24,7 @@
                     <span>@Model.QuestionList[0].Meaning</span>
                 </div>
                 <div class="mb-5">
-                    <input type="text" name="MyAnswer" id="myAnswer" class="form-control myAnswer w-80 box-shadow mx-auto" placeholder="回答"
+                    <input type="text" name="MyAnswer" value="@Model.MyAnswer" class="form-control myAnswer w-80 box-shadow mx-auto" placeholder="回答"
                         @{
                            if (Model.ChekedFlg) {
                                @:disabled="disabled"
