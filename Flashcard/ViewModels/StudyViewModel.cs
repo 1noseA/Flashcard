@@ -26,6 +26,9 @@ namespace Flashcard.ViewModels
         // 正解数
         public int CorrectAnswerCount { get; set; }
 
+        // チェック済みフラグ
+        public bool ChekedFlg { get; set; }
+
         // 結果リスト
         public List<ResultViewModel> ResultList { get; set; }
 

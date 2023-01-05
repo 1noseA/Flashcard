@@ -88,6 +88,10 @@ namespace Flashcard.Controllers
             {
                 viewModel.Judgement = "×";
             }
+            // 回答を再設定する
+            viewModel.MyAnswer = viewModel.MyAnswer;
+            // チェック済みにする
+            viewModel.ChekedFlg = true;
 
             // 結果リストに格納する
             List<ResultViewModel> resultList = new List<ResultViewModel>();
