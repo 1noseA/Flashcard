@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Flashcard.ViewModels;
 using Newtonsoft.Json;
 using Flashcard.Models;
+using NuGet.Packaging.Signing;
 
 namespace Flashcard.Controllers
 {
@@ -23,7 +24,7 @@ namespace Flashcard.Controllers
 
         // 初期処理
         // GET: Result
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
@@ -31,8 +32,20 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
+            // 画面表示項目を取得
             viewModel.ResultList = JsonConvert.DeserializeObject<List<ResultViewModel>>((string)TempData["ResultList"]);
             viewModel.CorrectAnswerCount = (int)TempData["CorrectAnswerCount"];
+
+            // 登録処理
+            Histories histories = new Histories();
+            histories.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            histories.StudyDate = DateTime.Now;
+            histories.StudyCount = viewModel.ResultList.Count;
+            histories.CorrectAnswerCount = viewModel.CorrectAnswerCount;
+            histories.CreatedBy = User.Identity.Name;
+            histories.CreatedAt = DateTime.Now;
+            _context.Add(histories);
+            await _context.SaveChangesAsync();
 
             return View(viewModel);
         }

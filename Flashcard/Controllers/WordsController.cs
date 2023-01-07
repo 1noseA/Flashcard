@@ -61,7 +61,7 @@ namespace Flashcard.Controllers
             
             // DBへ登録する
             words.CreatedBy = User.Identity.Name;
-            words.CreatedAt = DateTime.UtcNow;
+            words.CreatedAt = DateTime.Now;
             _context.Add(words);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -99,9 +99,8 @@ namespace Flashcard.Controllers
                     var updateData = _context.Words.Find(id);
                     updateData.Word = words.Word;
                     updateData.Meaning = words.Meaning;
-                    //updateData.CreatedAt = updateData.CreatedAt.ToUniversalTime();
                     updateData.UpdatedBy = User.Identity.Name;
-                    updateData.UpdatedAt = DateTime.UtcNow;
+                    updateData.UpdatedAt = DateTime.Now;
                     _context.Update(updateData);
                     await _context.SaveChangesAsync();
                 }

@@ -21,8 +21,8 @@ namespace Flashcard.Models
         public DateTime StudyDate { get; set; }
 
         // 出題数
-        [Column("stydy_count")]
-        public int StydyCount { get; set; }
+        [Column("study_count")]
+        public int StudyCount { get; set; }
 
         // 正答数
         [Column("correct_answer_count")]
