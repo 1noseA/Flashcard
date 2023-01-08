@@ -1,0 +1,48 @@
+﻿@model Flashcard.ViewModels.HistoriesViewModel
+
+@{
+    ViewData["Title"] = "Histories";
+}
+
+@*<link rel="stylesheet" href="~/css/Histories/Index.css" asp-append-version="true" />*@
+@*<script src="~/js/Histories/Index.js" asp-append-version="true"></script>*@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="content m-auto p-4" style="max-width:900px">
+    <div class="p-5 border box-shadow">
+        <h5 class="mb-5 text-center">学習履歴</h5>
+
+        <!-- グラフ -->
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    //const ctx = document.getElementById('myChart');
+
+    //new Chart(ctx, {
+    //    type: 'bar',
+    //    data: {
+    //        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //        labels: [@Model.StudyDate],
+    //        datasets: [{
+    //            label: '正答数',
+    //            //data: [12, 19, 3, 5, 2, 3],
+    //            data: [@Model.CorrectAnswerCount],
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        scales: {
+    //            y: {
+    //                beginAtZero: true
+    //            }
+    //        }
+    //    }
+    //});
+</script>
+
+
