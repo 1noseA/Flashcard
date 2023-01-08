@@ -23,14 +23,13 @@ namespace Flashcard.Controllers
 
         // 初期処理
         // GET: Histories
-        //public async Task<IActionResult> Index()
-        public async Task<ChartJson> Index()
+        public async Task<IActionResult> Index()
         {
             // ログインしていなければログイン画面へ
-            //if (_claim == null)
-            //{
-            //    return RedirectToAction("Index", "Account");
-            //}
+            if (_claim == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
 
             // 履歴を取得する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -41,38 +40,23 @@ namespace Flashcard.Controllers
             var HistoriesList = await flashcardContext.ToListAsync();
 
             // グラフデータ作成
-            string[] studyDate = new string[10];
-            double?[] correctAnswerCount = new double?[10];
-            double?[] correctAnswerRate = new double?[10];
-            //foreach (var item in HistoriesList)
-            for (int i = 0; i < HistoriesList.Count; i++)
+            foreach (var item in HistoriesList)
             {
-                studyDate[i] = HistoriesList[i].StudyDate.ToString("yyyy/MM/dd HH:mm");
-                correctAnswerCount[i] = HistoriesList[i].CorrectAnswerCount;
-                correctAnswerRate[i] = ((double)HistoriesList[i].CorrectAnswerCount / (double)HistoriesList[i].StudyCount * 100);
+                if (!string.IsNullOrEmpty(viewModel.StudyDate))
+                {
+                    viewModel.StudyDate = viewModel.StudyDate + ", '" + item.StudyDate.ToString("yyyy/MM/dd HH:mm") + "'";
+                    viewModel.CorrectAnswerCount = viewModel.CorrectAnswerCount + ", " + item.CorrectAnswerCount.ToString();
+                    viewModel.CorrectAnswerRate = viewModel.CorrectAnswerRate + ", " + ((double)item.CorrectAnswerCount / (double)item.StudyCount * 100).ToString();
+                }
+                else
+                {
+                    viewModel.StudyDate = "'" + item.StudyDate.ToString("yyyy/MM/dd HH:mm") + "'";
+                    viewModel.CorrectAnswerCount = item.CorrectAnswerCount.ToString();
+                    viewModel.CorrectAnswerRate = ((double)item.CorrectAnswerCount / (double)item.StudyCount * 100).ToString();
+                }
             }
 
-            //// 画面表示項目を取得
-            //viewModel.StudyDate = "'2022年12月30日'";
-            //viewModel.CorrectAnswerCount = "1";
-
-            return await Task.Run(() => {
-                //var forecast = getForecast(startDate);
-                return new ChartJson
-                {
-                    type = "bar",
-                    // Dataにすると名前空間と被ってエラーになるため変更
-                    data = new Datas
-                    {
-                        labels = studyDate,
-                        datasets = new Dataset[] {
-                                Dataset.CreateBar("正答数", correctAnswerCount, "royalblue"),
-                            },
-                    },
-                    options = Options.Plain(),
-                };
-            });
-            //return View(viewModel);
+            return View(viewModel);
         }
     }
 }

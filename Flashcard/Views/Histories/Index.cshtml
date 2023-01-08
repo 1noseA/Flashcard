@@ -1,4 +1,5 @@
-﻿@model Flashcard.ViewModels.HistoriesViewModel
+﻿@using Flashcard.Controllers
+@model Flashcard.ViewModels.HistoriesViewModel
 
 @{
     ViewData["Title"] = "Histories";
@@ -21,28 +22,26 @@
 </div>
 
 <script>
-    //const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myChart');
 
-    //new Chart(ctx, {
-    //    type: 'bar',
-    //    data: {
-    //        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        labels: [@Model.StudyDate],
-    //        datasets: [{
-    //            label: '正答数',
-    //            //data: [12, 19, 3, 5, 2, 3],
-    //            data: [@Model.CorrectAnswerCount],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            y: {
-    //                beginAtZero: true
-    //            }
-    //        }
-    //    }
-    //});
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [@Html.Raw(@Model.StudyDate)],
+            datasets: [{
+                label: '正答数',
+                data: [@Html.Raw(@Model.CorrectAnswerCount)],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 </script>
 
 
