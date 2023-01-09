@@ -29,15 +29,56 @@
         data: {
             labels: [@Html.Raw(@Model.StudyDate)],
             datasets: [{
-                label: '正答数',
+                label: '正答数(回)',
                 data: [@Html.Raw(@Model.CorrectAnswerCount)],
-                borderWidth: 1
+                borderWidth: 1,
+                yAxisID: 'first-y-axis'
+            }, {
+                label: '正答率(%)',
+                type: "line",
+                data: [@Html.Raw(@Model.CorrectAnswerRate)],
+                yAxisID: 'second-y-axis'
             }]
         },
         options: {
+            animation: false,
+            plugins: {
+                //legend: {
+                //    display: false
+                //},
+                tooltip: {
+                    enabled: false
+                }
+            }, // このかっこが足りなかったのが問題だった
             scales: {
-                y: {
-                    beginAtZero: true
+                'first-y-axis': {
+                    type: 'linear',
+                    position: 'left',
+                    min: 0,
+                    max: 10,
+                    ticks: {
+                        stepSize: 1
+                    },
+                    title: {
+                        display: true,
+                        text: "正答数(回)"
+                    }
+                },
+                'second-y-axis': {
+                    type: 'linear',
+                    position: 'right',
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        stepSize: 10
+                    },
+                    title: {
+                        display: true,
+                        text: "正答率(%)"
+                    },
+                    gridLines: {
+                        drawOnChartArea: false,
+                    }
                 }
             }
         }
