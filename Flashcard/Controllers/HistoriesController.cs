@@ -3,7 +3,6 @@ using Flashcard.Data;
 using System.Security.Claims;
 using Flashcard.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Flashcard.Chart;
 
 namespace Flashcard.Controllers
 {

@@ -1,12 +1,8 @@
-﻿@using Flashcard.Controllers
-@model Flashcard.ViewModels.HistoriesViewModel
+﻿@model Flashcard.ViewModels.HistoriesViewModel
 
 @{
     ViewData["Title"] = "Histories";
 }
-
-@*<link rel="stylesheet" href="~/css/Histories/Index.css" asp-append-version="true" />*@
-@*<script src="~/js/Histories/Index.js" asp-append-version="true"></script>*@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -25,46 +21,46 @@
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-        type: 'bar',
+        type: 'bar', // 棒グラフ
         data: {
-            labels: [@Html.Raw(@Model.StudyDate)],
+            labels: [@Html.Raw(@Model.StudyDate)], // x軸に表示する学習日時
             datasets: [{
                 label: '正答数(回)',
-                data: [@Html.Raw(@Model.CorrectAnswerCount)],
+                data: [@Html.Raw(@Model.CorrectAnswerCount)], // 学習日時ごとの正答数
                 borderWidth: 1,
                 yAxisID: 'first-y-axis'
             }, {
                 label: '正答率(%)',
-                type: "line",
-                data: [@Html.Raw(@Model.CorrectAnswerRate)],
+                type: "line", // 折れ線グラフ
+                data: [@Html.Raw(@Model.CorrectAnswerRate)], // 学習日時ごとの正答率
                 yAxisID: 'second-y-axis'
             }]
         },
         options: {
-            animation: false,
+            animation: false, // チャートがすぐに表示されるようにアニメーションをオフにする
             plugins: {
-                //legend: {
+                //legend: { // 凡例（今回は表示にしている）
                 //    display: false
                 //},
-                tooltip: {
+                tooltip: { // ツールチップ非表示
                     enabled: false
                 }
             }, // このかっこが足りなかったのが問題だった
             scales: {
-                'first-y-axis': {
-                    type: 'linear',
-                    position: 'left',
-                    min: 0,
-                    max: 10,
-                    ticks: {
-                        stepSize: 1
+                'first-y-axis': { // y軸1つ目
+                    type: 'linear', // 線形軸
+                    position: 'left', // 軸の位置
+                    min: 0, // 最小値
+                    max: 10, // 最大値
+                    ticks: { // 目盛線
+                        stepSize: 1 // 目盛間隔
                     },
                     title: {
                         display: true,
                         text: "正答数(回)"
                     }
                 },
-                'second-y-axis': {
+                'second-y-axis': { // y軸2つ目
                     type: 'linear',
                     position: 'right',
                     min: 0,
@@ -76,7 +72,7 @@
                         display: true,
                         text: "正答率(%)"
                     },
-                    gridLines: {
+                    gridLines: { // 補助線片方を消す
                         drawOnChartArea: false,
                     }
                 }
