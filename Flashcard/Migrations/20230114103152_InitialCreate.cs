@@ -35,7 +35,7 @@ namespace Flashcard.Migrations
                     history_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     user_id = table.Column<int>(type: "integer", nullable: false),
-                    study_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    study_date = table.Column<DateOnly>(type: "date", nullable: false),
                     study_count = table.Column<int>(type: "integer", nullable: false),
                     correct_answer_count = table.Column<int>(type: "integer", nullable: false),
                     created_by = table.Column<string>(type: "text", nullable: true),
@@ -94,13 +94,14 @@ namespace Flashcard.Migrations
                 columns: new[] { "history_id", "correct_answer_count", "created_at", "created_by", "study_count", "study_date", "updated_at", "updated_by", "user_id" },
                 values: new object[,]
                 {
-                    { 1, 4, null, null, 10, new DateTime(2022, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1 },
-                    { 2, 5, null, null, 10, new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1 },
-                    { 3, 6, null, null, 10, new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1 },
-                    { 4, 7, null, null, 10, new DateTime(2023, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1 },
-                    { 5, 8, null, null, 10, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1 },
-                    { 6, 4, null, null, 5, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 2 },
-                    { 7, 18, null, null, 20, new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, 1 }
+                    { 1, 4, null, null, 10, new DateOnly(2022, 12, 30), null, null, 1 },
+                    { 2, 5, null, null, 10, new DateOnly(2022, 12, 31), null, null, 1 },
+                    { 3, 6, null, null, 10, new DateOnly(2023, 1, 1), null, null, 1 },
+                    { 4, 7, null, null, 10, new DateOnly(2023, 1, 2), null, null, 1 },
+                    { 5, 8, null, null, 10, new DateOnly(2023, 1, 3), null, null, 1 },
+                    { 6, 4, null, null, 5, new DateOnly(2023, 1, 3), null, null, 2 },
+                    { 7, 18, null, null, 20, new DateOnly(2023, 1, 4), null, null, 1 },
+                    { 8, 9, null, null, 10, new DateOnly(2023, 1, 14), null, null, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -134,7 +135,10 @@ namespace Flashcard.Migrations
                     { 24, null, null, "データベース作成時に自動的に作成されるVARCHAR2型のDUMMYという名前の列を持ち、データを1行だけ含む表。", null, null, 2, "DUAL表" },
                     { 25, null, null, "OSファイルシステム上のファイルをあたかもOracleデータベースにある表のように扱うことができる。", null, null, 2, "外部表" },
                     { 26, null, null, "オブジェクトにつける別名。", null, null, 2, "シノニム" },
-                    { 27, null, null, "SQLを実行するにあたり、どのようなオブジェクトにどのような手順でアクセスすれば効率的かを判断するOracleの内部コンポーネント。", null, null, 2, "オプティマイザ" }
+                    { 27, null, null, "SQLを実行するにあたり、どのようなオブジェクトにどのような手順でアクセスすれば効率的かを判断するOracleの内部コンポーネント。", null, null, 2, "オプティマイザ" },
+                    { 28, null, null, "meaning1", null, null, 3, "word1" },
+                    { 29, null, null, "meaning2", null, null, 3, "word2" },
+                    { 30, null, null, "meaning3", null, null, 3, "word3" }
                 });
 
             migrationBuilder.CreateIndex(

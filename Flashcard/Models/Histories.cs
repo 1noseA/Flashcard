@@ -16,12 +16,10 @@ namespace Flashcard.Models
         public int UserId { get; set; }
 
         // 学習日
-        //[Column("study_date", TypeName = "timestamp(0)")]
-        //[DisplayFormat(DataFormatString = "{0:YYYY/MM/DD HH24:MI:SS}", ApplyFormatInEditMode = true)]
         [Column("study_date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:YYYY/MM/DD}", ApplyFormatInEditMode = true)]
-        public DateTime StudyDate { get; set; }
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateOnly StudyDate { get; set; }
 
         // 出題数
         [Column("study_count")]

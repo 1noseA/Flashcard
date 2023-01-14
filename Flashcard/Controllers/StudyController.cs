@@ -47,7 +47,7 @@ namespace Flashcard.Controllers
             var flashcardContext = _context.Words
                 .Where(w => w.UserId == userId)
                 .OrderBy(x => Guid.NewGuid()) // シャッフルする
-                .Take(2); // 10件取得 【TODO】10に戻す
+                .Take(10); // 10件取得
             viewModel.QuestionList = await flashcardContext.ToListAsync();
 
             // 出題リストを保存する

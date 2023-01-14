@@ -94,21 +94,31 @@ namespace Flashcard.Data
             modelBuilder.Entity<Words>().HasData(
                 new Words { UserId = 2, WordId = 27, Word = "オプティマイザ", Meaning = "SQLを実行するにあたり、どのようなオブジェクトにどのような手順でアクセスすれば効率的かを判断するOracleの内部コンポーネント。" });
 
+            // user3の単語
+            modelBuilder.Entity<Words>().HasData(
+                new Words { UserId = 3, WordId = 28, Word = "word1", Meaning = "meaning1" });
+            modelBuilder.Entity<Words>().HasData(
+                new Words { UserId = 3, WordId = 29, Word = "word2", Meaning = "meaning2" });
+            modelBuilder.Entity<Words>().HasData(
+                new Words { UserId = 3, WordId = 30, Word = "word3", Meaning = "meaning3" });
+
             // 履歴
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 1, UserId = 1, StudyDate = new DateTime(2022, 12, 30), StudyCount = 10, CorrectAnswerCount = 4 });
+                new Histories { HistoryId = 1, UserId = 1, StudyDate = new DateOnly(2022, 12, 30), StudyCount = 10, CorrectAnswerCount = 4 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 2, UserId = 1, StudyDate = new DateTime(2022, 12, 31), StudyCount = 10, CorrectAnswerCount = 5 });
+                new Histories { HistoryId = 2, UserId = 1, StudyDate = new DateOnly(2022, 12, 31), StudyCount = 10, CorrectAnswerCount = 5 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 3, UserId = 1, StudyDate = new DateTime(2023, 1, 1), StudyCount = 10, CorrectAnswerCount = 6 });
+                new Histories { HistoryId = 3, UserId = 1, StudyDate = new DateOnly(2023, 1, 1), StudyCount = 10, CorrectAnswerCount = 6 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 4, UserId = 1, StudyDate = new DateTime(2023, 1, 2), StudyCount = 10, CorrectAnswerCount = 7 });
+                new Histories { HistoryId = 4, UserId = 1, StudyDate = new DateOnly(2023, 1, 2), StudyCount = 10, CorrectAnswerCount = 7 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 5, UserId = 1, StudyDate = new DateTime(2023, 1, 3), StudyCount = 10, CorrectAnswerCount = 8 });
+                new Histories { HistoryId = 5, UserId = 1, StudyDate = new DateOnly(2023, 1, 3), StudyCount = 10, CorrectAnswerCount = 8 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 6, UserId = 2, StudyDate = new DateTime(2023, 1, 3), StudyCount = 5, CorrectAnswerCount = 4 });
+                new Histories { HistoryId = 6, UserId = 2, StudyDate = new DateOnly(2023, 1, 3), StudyCount = 5, CorrectAnswerCount = 4 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 7, UserId = 1, StudyDate = new DateTime(2023, 1, 4), StudyCount = 20, CorrectAnswerCount = 18 });
+                new Histories { HistoryId = 7, UserId = 1, StudyDate = new DateOnly(2023, 1, 4), StudyCount = 20, CorrectAnswerCount = 18 });
+            modelBuilder.Entity<Histories>().HasData(
+                new Histories { HistoryId = 8, UserId = 1, StudyDate = new DateOnly(2023, 1, 14), StudyCount = 10, CorrectAnswerCount = 9 });
         }
     }
 }

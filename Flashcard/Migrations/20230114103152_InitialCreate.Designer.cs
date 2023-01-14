@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Flashcard.Migrations
 {
     [DbContext(typeof(FlashcardContext))]
-    [Migration("20230114020737_InitialCreate")]
+    [Migration("20230114103152_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,8 +49,8 @@ namespace Flashcard.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("study_count");
 
-                    b.Property<DateTime>("StudyDate")
-                        .HasColumnType("timestamp without time zone")
+                    b.Property<DateOnly>("StudyDate")
+                        .HasColumnType("date")
                         .HasColumnName("study_date");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -77,7 +77,7 @@ namespace Flashcard.Migrations
                             HistoryId = 1,
                             CorrectAnswerCount = 4,
                             StudyCount = 10,
-                            StudyDate = new DateTime(2022, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2022, 12, 30),
                             UserId = 1
                         },
                         new
@@ -85,7 +85,7 @@ namespace Flashcard.Migrations
                             HistoryId = 2,
                             CorrectAnswerCount = 5,
                             StudyCount = 10,
-                            StudyDate = new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2022, 12, 31),
                             UserId = 1
                         },
                         new
@@ -93,7 +93,7 @@ namespace Flashcard.Migrations
                             HistoryId = 3,
                             CorrectAnswerCount = 6,
                             StudyCount = 10,
-                            StudyDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2023, 1, 1),
                             UserId = 1
                         },
                         new
@@ -101,7 +101,7 @@ namespace Flashcard.Migrations
                             HistoryId = 4,
                             CorrectAnswerCount = 7,
                             StudyCount = 10,
-                            StudyDate = new DateTime(2023, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2023, 1, 2),
                             UserId = 1
                         },
                         new
@@ -109,7 +109,7 @@ namespace Flashcard.Migrations
                             HistoryId = 5,
                             CorrectAnswerCount = 8,
                             StudyCount = 10,
-                            StudyDate = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2023, 1, 3),
                             UserId = 1
                         },
                         new
@@ -117,7 +117,7 @@ namespace Flashcard.Migrations
                             HistoryId = 6,
                             CorrectAnswerCount = 4,
                             StudyCount = 5,
-                            StudyDate = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2023, 1, 3),
                             UserId = 2
                         },
                         new
@@ -125,7 +125,15 @@ namespace Flashcard.Migrations
                             HistoryId = 7,
                             CorrectAnswerCount = 18,
                             StudyCount = 20,
-                            StudyDate = new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudyDate = new DateOnly(2023, 1, 4),
+                            UserId = 1
+                        },
+                        new
+                        {
+                            HistoryId = 8,
+                            CorrectAnswerCount = 9,
+                            StudyCount = 10,
+                            StudyDate = new DateOnly(2023, 1, 14),
                             UserId = 1
                         });
                 });
@@ -422,6 +430,27 @@ namespace Flashcard.Migrations
                             Meaning = "SQLを実行するにあたり、どのようなオブジェクトにどのような手順でアクセスすれば効率的かを判断するOracleの内部コンポーネント。",
                             UserId = 2,
                             Word = "オプティマイザ"
+                        },
+                        new
+                        {
+                            WordId = 28,
+                            Meaning = "meaning1",
+                            UserId = 3,
+                            Word = "word1"
+                        },
+                        new
+                        {
+                            WordId = 29,
+                            Meaning = "meaning2",
+                            UserId = 3,
+                            Word = "word2"
+                        },
+                        new
+                        {
+                            WordId = 30,
+                            Meaning = "meaning3",
+                            UserId = 3,
+                            Word = "word3"
                         });
                 });
 

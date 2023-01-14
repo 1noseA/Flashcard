@@ -36,25 +36,34 @@ namespace Flashcard.Controllers
             viewModel.ResultList = JsonConvert.DeserializeObject<List<ResultViewModel>>((string)TempData["ResultList"]);
             viewModel.CorrectAnswerCount = (int)TempData["CorrectAnswerCount"];
 
-            // 同じ日付のデータがあるか確認する
+            // 同日の履歴があるか確認する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var flashcardContext = _context.Histories
-                .Where(h => h.UserId == userId && h.StudyDate == DateTime.Now)
-                .OrderByDescending(h => h.StudyDate)
-                .Take(10);
-            //var HistoriesList = await flashcardContext.OrderBy(h => h.StudyDate).ToListAsync();
-
-            // 登録処理
-            Histories histories = new Histories();
-            histories.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            histories.StudyDate = DateTime.Now;
-            histories.StudyCount = viewModel.ResultList.Count;
-            histories.CorrectAnswerCount = viewModel.CorrectAnswerCount;
-            histories.CreatedBy = User.Identity.Name;
-            histories.CreatedAt = DateTime.Now;
-            _context.Add(histories);
-            await _context.SaveChangesAsync();
-
+            var today = DateTime.Now.ToString("yyyy-MM-dd");
+            Histories history = _context.Histories
+                .FirstOrDefault(h => h.UserId == userId && h.StudyDate.ToString() == today);
+            // 同日の履歴があれば更新
+            if (history != null)
+            {
+                history.StudyCount = history.StudyCount + viewModel.ResultList.Count;
+                history.CorrectAnswerCount = viewModel.CorrectAnswerCount;
+                history.UpdatedBy = User.Identity.Name;
+                history.UpdatedAt = DateTime.Now;
+                _context.Update(history);
+                await _context.SaveChangesAsync();
+            }
+            // なければ登録
+            else
+            {
+                Histories histories = new Histories();
+                histories.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                histories.StudyDate = DateOnly.Parse(today);
+                histories.StudyCount = viewModel.ResultList.Count;
+                histories.CorrectAnswerCount = viewModel.CorrectAnswerCount;
+                histories.CreatedBy = User.Identity.Name;
+                histories.CreatedAt = DateTime.Now;
+                _context.Add(histories);
+                await _context.SaveChangesAsync();
+            }
             return View(viewModel);
         }
     }
