@@ -45,13 +45,13 @@ namespace Flashcard.Controllers
             {
                 if (!string.IsNullOrEmpty(viewModel.StudyDate))
                 {
-                    viewModel.StudyDate = viewModel.StudyDate + ", '" + item.StudyDate.ToString("yyyy/MM/dd HH:mm") + "'";
+                    viewModel.StudyDate = viewModel.StudyDate + ", '" + item.StudyDate.ToString("yyyy/MM/dd") + "'";
                     viewModel.CorrectAnswerCount = viewModel.CorrectAnswerCount + ", " + item.CorrectAnswerCount.ToString();
                     viewModel.CorrectAnswerRate = viewModel.CorrectAnswerRate + ", " + ((double)item.CorrectAnswerCount / (double)item.StudyCount * 100).ToString();
                 }
                 else
                 {
-                    viewModel.StudyDate = "'" + item.StudyDate.ToString("yyyy/MM/dd HH:mm") + "'";
+                    viewModel.StudyDate = "'" + item.StudyDate.ToString("yyyy/MM/dd") + "'";
                     viewModel.CorrectAnswerCount = item.CorrectAnswerCount.ToString();
                     viewModel.CorrectAnswerRate = ((double)item.CorrectAnswerCount / (double)item.StudyCount * 100).ToString();
                 }

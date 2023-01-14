@@ -53,7 +53,7 @@
                     min: 0, // 最小値
                     //max: 10, // 最大値
                     ticks: { // 目盛線
-                        stepSize: 1 // 目盛間隔
+                        stepSize: 5 // 目盛間隔
                     },
                     title: {
                         display: true,
@@ -72,13 +72,11 @@
                         display: true,
                         text: "正答率(%)"
                     },
-                    gridLines: { // 補助線片方を消す
-                        drawOnChartArea: false,
+                    grid: { // グリッド線を片方消す
+                        drawOnChartArea: false
                     }
                 }
             }
         }
     });
 </script>
-
-

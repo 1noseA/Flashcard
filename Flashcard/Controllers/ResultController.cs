@@ -38,9 +38,9 @@ namespace Flashcard.Controllers
 
             // 同日の履歴があるか確認する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var today = DateTime.Now.ToString("yyyy-MM-dd");
+            var today = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
             Histories history = _context.Histories
-                .FirstOrDefault(h => h.UserId == userId && h.StudyDate.ToString() == today);
+                .FirstOrDefault(h => h.UserId == userId && h.StudyDate == today);
             // 同日の履歴があれば更新
             if (history != null)
             {
@@ -56,7 +56,7 @@ namespace Flashcard.Controllers
             {
                 Histories histories = new Histories();
                 histories.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-                histories.StudyDate = DateOnly.Parse(today);
+                histories.StudyDate = today;
                 histories.StudyCount = viewModel.ResultList.Count;
                 histories.CorrectAnswerCount = viewModel.CorrectAnswerCount;
                 histories.CreatedBy = User.Identity.Name;
