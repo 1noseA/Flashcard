@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Flashcard.Migrations
 {
     [DbContext(typeof(FlashcardContext))]
-    [Migration("20230104035453_AlterHistories")]
-    partial class AlterHistories
+    [Migration("20230114020737_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,13 +45,13 @@ namespace Flashcard.Migrations
                         .HasColumnType("text")
                         .HasColumnName("created_by");
 
-                    b.Property<DateTime>("StudyDate")
-                        .HasColumnType("timestamp(0) without time zone")
-                        .HasColumnName("study_date");
-
-                    b.Property<int>("StydyCount")
+                    b.Property<int>("StudyCount")
                         .HasColumnType("integer")
-                        .HasColumnName("stydy_count");
+                        .HasColumnName("study_count");
+
+                    b.Property<DateTime>("StudyDate")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("study_date");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp(0) without time zone")
@@ -75,50 +75,58 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 1,
-                            CorrectAnswerCount = 5,
+                            CorrectAnswerCount = 4,
+                            StudyCount = 10,
                             StudyDate = new DateTime(2022, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StydyCount = 10,
                             UserId = 1
                         },
                         new
                         {
                             HistoryId = 2,
-                            CorrectAnswerCount = 6,
+                            CorrectAnswerCount = 5,
+                            StudyCount = 10,
                             StudyDate = new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StydyCount = 10,
                             UserId = 1
                         },
                         new
                         {
                             HistoryId = 3,
-                            CorrectAnswerCount = 7,
+                            CorrectAnswerCount = 6,
+                            StudyCount = 10,
                             StudyDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StydyCount = 10,
                             UserId = 1
                         },
                         new
                         {
                             HistoryId = 4,
-                            CorrectAnswerCount = 8,
+                            CorrectAnswerCount = 7,
+                            StudyCount = 10,
                             StudyDate = new DateTime(2023, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StydyCount = 10,
                             UserId = 1
                         },
                         new
                         {
                             HistoryId = 5,
-                            CorrectAnswerCount = 9,
+                            CorrectAnswerCount = 8,
+                            StudyCount = 10,
                             StudyDate = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StydyCount = 10,
                             UserId = 1
                         },
                         new
                         {
                             HistoryId = 6,
-                            CorrectAnswerCount = 5,
+                            CorrectAnswerCount = 4,
+                            StudyCount = 5,
                             StudyDate = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StydyCount = 5,
                             UserId = 2
+                        },
+                        new
+                        {
+                            HistoryId = 7,
+                            CorrectAnswerCount = 18,
+                            StudyCount = 20,
+                            StudyDate = new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 1
                         });
                 });
 

@@ -36,6 +36,14 @@ namespace Flashcard.Controllers
             viewModel.ResultList = JsonConvert.DeserializeObject<List<ResultViewModel>>((string)TempData["ResultList"]);
             viewModel.CorrectAnswerCount = (int)TempData["CorrectAnswerCount"];
 
+            // 同じ日付のデータがあるか確認する
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var flashcardContext = _context.Histories
+                .Where(h => h.UserId == userId && h.StudyDate == DateTime.Now)
+                .OrderByDescending(h => h.StudyDate)
+                .Take(10);
+            //var HistoriesList = await flashcardContext.OrderBy(h => h.StudyDate).ToListAsync();
+
             // 登録処理
             Histories histories = new Histories();
             histories.UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);

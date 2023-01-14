@@ -48,7 +48,7 @@ namespace Flashcard.Migrations
                         .HasColumnName("study_count");
 
                     b.Property<DateTime>("StudyDate")
-                        .HasColumnType("timestamp(0) without time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("study_date");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -73,7 +73,7 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 1,
-                            CorrectAnswerCount = 5,
+                            CorrectAnswerCount = 4,
                             StudyCount = 10,
                             StudyDate = new DateTime(2022, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
@@ -81,7 +81,7 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 2,
-                            CorrectAnswerCount = 6,
+                            CorrectAnswerCount = 5,
                             StudyCount = 10,
                             StudyDate = new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
@@ -89,7 +89,7 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 3,
-                            CorrectAnswerCount = 7,
+                            CorrectAnswerCount = 6,
                             StudyCount = 10,
                             StudyDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
@@ -97,7 +97,7 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 4,
-                            CorrectAnswerCount = 8,
+                            CorrectAnswerCount = 7,
                             StudyCount = 10,
                             StudyDate = new DateTime(2023, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
@@ -105,7 +105,7 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 5,
-                            CorrectAnswerCount = 9,
+                            CorrectAnswerCount = 8,
                             StudyCount = 10,
                             StudyDate = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
@@ -113,10 +113,18 @@ namespace Flashcard.Migrations
                         new
                         {
                             HistoryId = 6,
-                            CorrectAnswerCount = 5,
+                            CorrectAnswerCount = 4,
                             StudyCount = 5,
                             StudyDate = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 2
+                        },
+                        new
+                        {
+                            HistoryId = 7,
+                            CorrectAnswerCount = 18,
+                            StudyCount = 20,
+                            StudyDate = new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 1
                         });
                 });
 

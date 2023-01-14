@@ -96,17 +96,19 @@ namespace Flashcard.Data
 
             // 履歴
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 1, UserId = 1, StudyDate = new DateTime(2022, 12, 30), StudyCount = 10, CorrectAnswerCount = 5 });
+                new Histories { HistoryId = 1, UserId = 1, StudyDate = new DateTime(2022, 12, 30), StudyCount = 10, CorrectAnswerCount = 4 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 2, UserId = 1, StudyDate = new DateTime(2022, 12, 31), StudyCount = 10, CorrectAnswerCount = 6 });
+                new Histories { HistoryId = 2, UserId = 1, StudyDate = new DateTime(2022, 12, 31), StudyCount = 10, CorrectAnswerCount = 5 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 3, UserId = 1, StudyDate = new DateTime(2023, 1, 1), StudyCount = 10, CorrectAnswerCount = 7 });
+                new Histories { HistoryId = 3, UserId = 1, StudyDate = new DateTime(2023, 1, 1), StudyCount = 10, CorrectAnswerCount = 6 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 4, UserId = 1, StudyDate = new DateTime(2023, 1, 2), StudyCount = 10, CorrectAnswerCount = 8 });
+                new Histories { HistoryId = 4, UserId = 1, StudyDate = new DateTime(2023, 1, 2), StudyCount = 10, CorrectAnswerCount = 7 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 5, UserId = 1, StudyDate = new DateTime(2023, 1, 3), StudyCount = 10, CorrectAnswerCount = 9 });
+                new Histories { HistoryId = 5, UserId = 1, StudyDate = new DateTime(2023, 1, 3), StudyCount = 10, CorrectAnswerCount = 8 });
             modelBuilder.Entity<Histories>().HasData(
-                new Histories { HistoryId = 6, UserId = 2, StudyDate = new DateTime(2023, 1, 3), StudyCount = 5, CorrectAnswerCount = 5 });
+                new Histories { HistoryId = 6, UserId = 2, StudyDate = new DateTime(2023, 1, 3), StudyCount = 5, CorrectAnswerCount = 4 });
+            modelBuilder.Entity<Histories>().HasData(
+                new Histories { HistoryId = 7, UserId = 1, StudyDate = new DateTime(2023, 1, 4), StudyCount = 20, CorrectAnswerCount = 18 });
         }
     }
 }
