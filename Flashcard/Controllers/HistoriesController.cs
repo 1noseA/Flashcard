@@ -32,11 +32,13 @@ namespace Flashcard.Controllers
 
             // 履歴を取得する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            // 日時の新しいものから10件取得する
+            // TakeLastは使えないため降順で10件取ってから、昇順に並べ替えている
             var flashcardContext = _context.Histories
                 .Where(h => h.UserId == userId)
                 .OrderByDescending(h => h.StudyDate)
                 .Take(10);
-            var HistoriesList = await flashcardContext.ToListAsync();
+            var HistoriesList = await flashcardContext.OrderBy(h => h.StudyDate).ToListAsync();
 
             // グラフデータ作成
             foreach (var item in HistoriesList)
