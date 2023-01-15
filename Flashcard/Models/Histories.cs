@@ -17,8 +17,6 @@ namespace Flashcard.Models
 
         // 学習日
         [Column("study_date")]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateOnly StudyDate { get; set; }
 
         // 出題数

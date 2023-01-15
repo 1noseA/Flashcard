@@ -4,7 +4,7 @@
     {
 
         // ユーザ名
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
 
         // 学習日
         public string StudyDate { get; set; }
