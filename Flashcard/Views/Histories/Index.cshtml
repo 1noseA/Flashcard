@@ -8,13 +8,36 @@
 
 <div class="content m-auto p-4" style="max-width:900px">
     <div class="p-5 border box-shadow">
-        <h5 class="mb-5 text-center">学習履歴</h5>
+        @{
+            if (@Model.StudyDate != null)
+            {
+                <h5 class="mb-5 text-center">@Model.UserName さんの学習履歴</h5>
 
-        <!-- グラフ -->
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
+                <!-- グラフ -->
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            }
+            else
+            {
+                <div>学習履歴はありません</div>
+            }
+        }
     </div>
+    @{
+        if (@Model.StudyDate != null)
+        {
+            <div class="row d-flex justify-content-end mt-4">
+
+                <form asp-action="AllDelete" class="col-2">
+                    <button type="submit" class="btnLight w-100 box-shadow" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
+                </form>
+                <form asp-action="DownloadFile" class="col-2">
+                    <button type="submit" class="btnLight w-100 box-shadow">Excel出力</button>
+                </form>
+            </div>
+        }
+    }
 </div>
 
 <script>

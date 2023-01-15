@@ -30,6 +30,8 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
+            viewModel.UserName = User.Identity.Name;
+
             // 履歴を取得する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             // 日時の新しいものから10件取得する
@@ -58,6 +60,65 @@ namespace Flashcard.Controllers
             }
 
             return View(viewModel);
+        }
+
+        // 履歴削除
+        // POST: Histories/AllDelete
+        [HttpPost, ActionName("AllDelete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllDelete()
+        {
+            // ログインしていなければログイン画面へ
+            if (_claim == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            // ログインユーザIDに紐づく履歴を取得する
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //var histories = await _context.Histories.FindAsync(userId);
+            var histories = _context.Histories
+                                    .Where(h => h.UserId == userId);
+            if (histories != null)
+            {
+                // 削除する
+                _context.Histories.RemoveRange(histories);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                viewModel.ErrorMsg = "削除に失敗しました。";
+                return RedirectToAction("Index", viewModel);
+            }
+            
+            // 画面項目を初期化する
+            viewModel.StudyDate = null;
+            viewModel.CorrectAnswerCount = null;
+            viewModel.CorrectAnswerRate = null;
+
+            return RedirectToAction(nameof(Index), viewModel);
+        }
+
+        // POST: Histories/DownloadFile
+        [HttpPost, ActionName("DownloadFile")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DownloadFile()
+        {
+            // ログインしていなければログイン画面へ
+            if (_claim == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            // ログインユーザIDに紐づく履歴を取得する
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var histories = await _context.Histories.FindAsync(userId);
+
+            // ファイルを作成する
+
+            // ファイルをダウンロードする
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

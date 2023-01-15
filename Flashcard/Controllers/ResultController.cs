@@ -45,7 +45,7 @@ namespace Flashcard.Controllers
             if (history != null)
             {
                 history.StudyCount = history.StudyCount + viewModel.ResultList.Count;
-                history.CorrectAnswerCount = viewModel.CorrectAnswerCount;
+                history.CorrectAnswerCount = history.CorrectAnswerCount + viewModel.CorrectAnswerCount;
                 history.UpdatedBy = User.Identity.Name;
                 history.UpdatedAt = DateTime.Now;
                 _context.Update(history);

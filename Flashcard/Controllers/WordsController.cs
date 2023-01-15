@@ -140,9 +140,9 @@ namespace Flashcard.Controllers
             if (words != null)
             {
                 _context.Words.Remove(words);
+                await _context.SaveChangesAsync();
             }
             
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
