@@ -6,6 +6,8 @@
 
     // 編集および中止リンクが押下
     $('.edit').click(function () {
+        // ブラウザ標準の機能を停止（ページトップに行かないようにする）
+        event.preventDefault();
 
         var index = $('.edit').index(this);
 
