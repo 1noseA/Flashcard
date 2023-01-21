@@ -1,5 +1,4 @@
 ﻿using Flashcard.Data;
-using Flashcard.Models;
 using Flashcard.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -44,11 +43,10 @@ namespace Flashcard.Controllers
                 return View("Index", viewModel);
             }
 
-            var users = from u in _context.Users
-                        select u;
-
             // ユーザー名が一致するユーザーを抽出
-            var lookupUser = users.Where(u => u.UserName == viewModel.UserName).FirstOrDefault();
+            var lookupUser = _context.Users
+                                    .Where(u => u.UserName == viewModel.UserName)
+                                    .FirstOrDefault();
             if (lookupUser == null)
             {
                 viewModel.ErrorMsg = "ユーザ名かパスワードが間違っています。";

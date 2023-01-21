@@ -4,7 +4,6 @@ using System.Security.Claims;
 using Flashcard.ViewModels;
 using Newtonsoft.Json;
 using Flashcard.Models;
-using NuGet.Packaging.Signing;
 
 namespace Flashcard.Controllers
 {
@@ -40,7 +39,7 @@ namespace Flashcard.Controllers
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var today = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
             Histories history = _context.Histories
-                .FirstOrDefault(h => h.UserId == userId && h.StudyDate == today);
+                                        .FirstOrDefault(h => h.UserId == userId && h.StudyDate == today);
             // 同日の履歴があれば更新
             if (history != null)
             {

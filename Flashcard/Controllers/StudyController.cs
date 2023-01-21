@@ -5,7 +5,6 @@ using Flashcard.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace Flashcard.Controllers
 {
@@ -45,9 +44,9 @@ namespace Flashcard.Controllers
             // ログインユーザに紐づく出題リストを作成する
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var flashcardContext = _context.Words
-                .Where(w => w.UserId == userId)
-                .OrderBy(x => Guid.NewGuid()) // シャッフルする
-                .Take(10); // 10件取得
+                                            .Where(w => w.UserId == userId)
+                                            .OrderBy(x => Guid.NewGuid()) // シャッフルする
+                                            .Take(10); // 10件取得
             viewModel.QuestionList = await flashcardContext.ToListAsync();
 
             // 出題リストを保存する

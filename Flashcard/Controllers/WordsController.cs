@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Flashcard.Data;
 using Flashcard.Models;
 using Flashcard.ViewModels;
 using System.Security.Claims;
-using Microsoft.Extensions.Hosting;
 
 namespace Flashcard.Controllers
 {
@@ -34,7 +32,7 @@ namespace Flashcard.Controllers
             }
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var flashcardContext = _context.Words
-                .Where(w => w.UserId == userId);
+                                            .Where(w => w.UserId == userId);
             viewModel.WordList = await flashcardContext.ToListAsync();
             words.UserId = userId;
             viewModel.Words = words;
@@ -68,8 +66,6 @@ namespace Flashcard.Controllers
         }
 
         // POST: Words/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("WordId,Word,Meaning,UserId")] Words words)

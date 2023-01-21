@@ -3,15 +3,7 @@ using Flashcard.Data;
 using System.Security.Claims;
 using Flashcard.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 using ClosedXML.Excel;
-using Flashcard.Models;
-using DocumentFormat.OpenXml;
-using System;
-using System.Reflection;
-using Microsoft.VisualBasic;
-using System.Diagnostics;
-using System.Linq;
 using System.Data;
 
 namespace Flashcard.Controllers
@@ -21,8 +13,6 @@ namespace Flashcard.Controllers
         private readonly FlashcardContext _context;
 
         private readonly Claim _claim;
-
-        private readonly IXLWorkbook _xlWorkbook;
 
         HistoriesViewModel viewModel = new HistoriesViewModel();
 
@@ -47,9 +37,9 @@ namespace Flashcard.Controllers
             // 日時の新しいものから10件取得する
             // TakeLastは使えないため降順で10件取ってから、昇順に並べ替えている
             var flashcardContext = _context.Histories
-                .Where(h => h.UserId == userId)
-                .OrderByDescending(h => h.StudyDate)
-                .Take(10);
+                                            .Where(h => h.UserId == userId)
+                                            .OrderByDescending(h => h.StudyDate)
+                                            .Take(10);
             var HistoriesList = await flashcardContext.OrderBy(h => h.StudyDate).ToListAsync();
 
             // グラフデータ作成
