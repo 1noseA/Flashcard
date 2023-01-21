@@ -12,6 +12,7 @@ using System.Reflection;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Linq;
+using System.Data;
 
 namespace Flashcard.Controllers
 {
@@ -118,36 +119,39 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // ファイルに書き込むデータを取得
+            // 出力対象の履歴を取得
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var histories = _context.Histories
                                     .Where(h => h.UserId == userId)
                                     .ToList();
             // 出力項目編集
-
-            // 項目名取得（GetFieldsで取得できないため手書き）
-            string[] itemName = new string[] { "学習日", "出題数", "正答数" };
-
-            string userName = User.Identity.Name;
-
+            DataTable dt = new DataTable("履歴");
+            // ヘッダー行の内容設定
+            dt.Columns.AddRange(new DataColumn[4] { new DataColumn("学習日"),
+                                            new DataColumn("出題数(回)"),
+                                            new DataColumn("正答数(回)"),
+                                            new DataColumn("正答率(％)")});
+            // 取得したデータをDataTableにコピー
+            double rate = 0;
+            foreach (var h in histories)
+            {
+                rate = (double)h.CorrectAnswerCount / (double)h.StudyCount * 100;
+                dt.Rows.Add(h.StudyDate, h.StudyCount, h.CorrectAnswerCount, rate);
+            }
             // ワークブックを新規作成
             using (var wb = new XLWorkbook())
             {
                 // ワークシートを追加する
-                wb.Worksheets.Add();
-                // ワークシートを開く
-                var ws = wb.Worksheet("Sheet1");
-                // 先頭行（項目名）
-                ws.FirstCell().InsertData(itemName);
-                // ワークシートに履歴リストを挿入する
-                ws.Cell("A2").InsertData(histories);
+                wb.Worksheets.Add(dt);
 
                 // 出力
                 using (MemoryStream stream = new MemoryStream())
                 {
                     // ワークブックを保存する
                     wb.SaveAs(stream);
-                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"histories_{userName}_{DateTime.Now.ToString("yyyyMMdd")}.xlsx");
+                    return File(stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        $"histories_{User.Identity.Name}_{DateTime.Now.ToString("yyyyMMdd")}.xlsx");
                 }
             }
         }
