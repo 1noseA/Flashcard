@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\WordListViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.100.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />

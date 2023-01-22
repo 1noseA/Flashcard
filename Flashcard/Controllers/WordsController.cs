@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Flashcard.Data;
 using Flashcard.Models;
-using Flashcard.ViewModels;
 using System.Security.Claims;
 
 namespace Flashcard.Controllers
@@ -13,9 +12,6 @@ namespace Flashcard.Controllers
 
         private readonly Claim _claim;
 
-        WordListViewModel viewModel = new WordListViewModel();
-        Words words = new Words();
-
         public WordsController(FlashcardContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -23,7 +19,7 @@ namespace Flashcard.Controllers
         }
 
         // GET: Words
-        public async Task<IActionResult> Index(WordListViewModel viewModel)
+        public async Task<IActionResult> Index(int? pageNumber)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
@@ -31,12 +27,19 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var flashcardContext = _context.Words
-                                            .Where(w => w.UserId == userId);
-            viewModel.WordList = await flashcardContext.ToListAsync();
-            words.UserId = userId;
-            viewModel.Words = words;
-            return View(viewModel);
+            var wordList = _context.Words
+                                .Where(w => w.UserId == userId);
+
+            // 登録・更新・削除失敗時以外はエラーメッセージを初期化する
+            if (TempData["RedirectFlg"] == null || (bool)TempData["RedirectFlg"] != true) {
+                TempData["ErrorMsg"] = "";
+            }
+            
+            TempData["UserId"] = userId;
+
+            // ページング
+            int pageSize = 20;
+            return View(await PaginatedList<Words>.CreateAsync(wordList, pageNumber ?? 1, pageSize));
         }
 
         // POST: Words/Create
@@ -53,10 +56,11 @@ namespace Flashcard.Controllers
             // 入力エラーがあったら画面再表示して処理を中断する
             if (!ModelState.IsValid)
             {
-                viewModel.ErrorMsg = "追加に失敗しました。";
-                return RedirectToAction("Index", viewModel);
+                TempData["ErrorMsg"] = "追加に失敗しました。";
+                TempData["RedirectFlg"] = true;
+                return RedirectToAction("Index");
             }
-            
+
             // DBへ登録する
             words.CreatedBy = User.Identity.Name;
             words.CreatedAt = DateTime.Now;
@@ -78,15 +82,17 @@ namespace Flashcard.Controllers
 
             if (id != words.WordId)
             {
-                viewModel.ErrorMsg = "更新に失敗しました。";
-                return RedirectToAction("Index", viewModel);
+                TempData["ErrorMsg"] = "更新に失敗しました。";
+                TempData["RedirectFlg"] = true;
+                return RedirectToAction("Index");
             }
 
             // 入力エラーがあったら画面再表示して処理を中断する
             if (!ModelState.IsValid)
             {
-                viewModel.ErrorMsg = "更新に失敗しました。";
-                return RedirectToAction("Index", viewModel);
+                TempData["ErrorMsg"] = "更新に失敗しました。";
+                TempData["RedirectFlg"] = true;
+                return RedirectToAction("Index");
             }
             else
             {
@@ -104,8 +110,9 @@ namespace Flashcard.Controllers
                 {
                     if (!WordsExists(words.WordId))
                     {
-                        viewModel.ErrorMsg = "更新に失敗しました。";
-                        return RedirectToAction("Index", viewModel);
+                        TempData["ErrorMsg"] = "更新に失敗しました。";
+                        TempData["RedirectFlg"] = true;
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -129,8 +136,9 @@ namespace Flashcard.Controllers
 
             if (_context.Words == null)
             {
-                viewModel.ErrorMsg = "削除に失敗しました。";
-                return RedirectToAction("Index", viewModel);
+                TempData["ErrorMsg"] = "削除に失敗しました。";
+                TempData["RedirectFlg"] = true;
+                return RedirectToAction("Index");
             }
             var words = await _context.Words.FindAsync(id);
             if (words != null)

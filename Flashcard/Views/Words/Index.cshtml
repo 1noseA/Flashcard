@@ -1,7 +1,11 @@
-﻿@model Flashcard.ViewModels.WordListViewModel
+﻿@model PaginatedList<Flashcard.Models.Words>
 
 @{
     ViewData["Title"] = "WordList";
+}
+
+@{
+    Words words = new Words();
 }
 
 <link rel="stylesheet" href="~/css/Words/Index.css" asp-append-version="true" />
@@ -13,29 +17,26 @@
     <!-- 新規追加 -->
     <form asp-action="Create" class="needs-validation" novalidate>
         @{
-            if (!string.IsNullOrEmpty(Model.ErrorMsg))
-            {
-                <div class="invalid-feedback mb-3" style="display: block;">
-                    @Model.ErrorMsg
-                </div>
-            }
+            <div class="invalid-feedback mb-3" style="display: block;">
+                @TempData["ErrorMsg"]
+            </div>
         }
         <div class="row mb-5 g-3 align-items-center">
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-3">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
                 <div class="invalid-feedback" style="display: block;">
-                    <span asp-validation-for="Words.Word"></span>
+                    <span asp-validation-for="@words.Word"></span>
                 </div>
             </div>
             <div class="col-5">
                 <input type="text" name="Meaning" class="form-control box-shadow" placeholder="意味" required />
                 <div class="invalid-feedback" style="display: block;">
-                    <span asp-validation-for="Words.Meaning"></span>
+                    <span asp-validation-for="@words.Meaning"></span>
                 </div>
             </div>
             <div class="col-2">
-                <input type="hidden" name="UserId" value="@Model.Words.UserId" />
+                <input type="hidden" name="UserId" value="@TempData["UserId"]" />
                 <input type="submit" value="追加" class="btnCommon w-100 box-shadow" />
             </div>
         </div>
@@ -59,7 +60,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model.WordList) {
+        @foreach (var item in Model) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.WordId)
@@ -84,7 +85,7 @@
                     <td class="text-center">
                         <span class="btnUpdate">
                             <input type="hidden" asp-for="@item.WordId" name="WordId" />
-                            <input type="hidden" name="UserId" value="@Model.Words.UserId" />
+                            <input type="hidden" name="UserId" value="@words.UserId" />
                             <input type="submit" value="更新" class="btn text-link" />&nbsp;|&nbsp;
                         </span>
                         <a href="#" class="edit">編集</a>
@@ -100,3 +101,19 @@
         </tbody>
     </table>
 </div>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+    asp-route-pageNumber="@(Model.PageIndex - 1)"
+    class="btn btn-default @prevDisabled">
+    前へ
+</a>
+<a asp-action="Index"
+    asp-route-pageNumber="@(Model.PageIndex + 1)"
+    class="btn btn-default @nextDisabled">
+    次へ
+</a>
