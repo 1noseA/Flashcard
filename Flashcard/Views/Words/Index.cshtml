@@ -49,10 +49,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th class="w-10">
-                    No
-                </th>
-                <th class="w-20">
+                <th class="w-30 ps-5">
                     単語
                 </th>
                 <th class="w-40">
@@ -65,11 +62,8 @@
         <tbody>
         @foreach (var item in Model) {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WordId)
-                </td>
                 <form asp-action="Edit" asp-route-id="@item.WordId" method="post">
-                    <td>
+                    <td class="ps-5">
                         <span class="word">
                             @Html.DisplayFor(modelItem => item.Word)
                         </span>
