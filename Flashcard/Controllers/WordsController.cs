@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Flashcard.Data;
 using Flashcard.Models;
 using System.Security.Claims;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Flashcard.Controllers
 {
@@ -26,6 +27,13 @@ namespace Flashcard.Controllers
             {
                 return RedirectToAction("Index", "Account");
             }
+
+            // 現在のページ番号を取得
+            if (TempData["PageNumber"] != null) {
+                pageNumber = (int)TempData["PageNumber"];
+            }
+
+            // ログインユーザの単語一覧取得
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var wordList = _context.Words
                                 .Where(w => w.UserId == userId);
@@ -45,7 +53,7 @@ namespace Flashcard.Controllers
         // POST: Words/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WordId,Word,Meaning,UserId")] Words words)
+        public async Task<IActionResult> Create([Bind("WordId,Word,Meaning,UserId")] Words words, int? pageNumber)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
@@ -53,12 +61,15 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
+            // 現在のページ番号を保存
+            TempData["PageNumber"] = pageNumber;
+
             // 入力エラーがあったら画面再表示して処理を中断する
             if (!ModelState.IsValid)
             {
                 TempData["ErrorMsg"] = "追加に失敗しました。";
                 TempData["RedirectFlg"] = true;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", pageNumber);
             }
 
             // DBへ登録する
@@ -66,19 +77,22 @@ namespace Flashcard.Controllers
             words.CreatedAt = DateTime.Now;
             _context.Add(words);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), pageNumber);
         }
 
         // POST: Words/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WordId,Word,Meaning,UserId")] Words words)
+        public async Task<IActionResult> Edit(int id, [Bind("WordId,Word,Meaning,UserId")] Words words, int? pageNumber)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
             {
                 return RedirectToAction("Index", "Account");
             }
+
+            // 現在のページ番号を保存
+            TempData["PageNumber"] = pageNumber;
 
             if (id != words.WordId)
             {
@@ -98,6 +112,7 @@ namespace Flashcard.Controllers
             {
                 try
                 {
+                    // 更新する
                     var updateData = _context.Words.Find(id);
                     updateData.Word = words.Word;
                     updateData.Meaning = words.Meaning;
@@ -126,13 +141,16 @@ namespace Flashcard.Controllers
         // POST: Words/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, int? pageNumber)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
             {
                 return RedirectToAction("Index", "Account");
             }
+
+            // 現在のページ番号を保存
+            TempData["PageNumber"] = pageNumber;
 
             if (_context.Words == null)
             {
@@ -143,6 +161,7 @@ namespace Flashcard.Controllers
             var words = await _context.Words.FindAsync(id);
             if (words != null)
             {
+                // 削除する
                 _context.Words.Remove(words);
                 await _context.SaveChangesAsync();
             }

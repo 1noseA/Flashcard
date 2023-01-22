@@ -6,6 +6,8 @@
 
 @{
     Words words = new Words();
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
 <link rel="stylesheet" href="~/css/Words/Index.css" asp-append-version="true" />
@@ -37,6 +39,7 @@
             </div>
             <div class="col-2">
                 <input type="hidden" name="UserId" value="@TempData["UserId"]" />
+                <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
                 <input type="submit" value="追加" class="btnCommon w-100 box-shadow" />
             </div>
         </div>
@@ -86,6 +89,7 @@
                         <span class="btnUpdate">
                             <input type="hidden" asp-for="@item.WordId" name="WordId" />
                             <input type="hidden" name="UserId" value="@words.UserId" />
+                            <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
                             <input type="submit" value="更新" class="btn text-link" />&nbsp;|&nbsp;
                         </span>
                         <a href="#" class="edit">編集</a>
@@ -93,6 +97,7 @@
                 </form>
                 <form asp-action="Delete" asp-route-id="@item.WordId">
                     <td class="text-center">
+                        <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
                         <input type="submit" value="削除" class="btn text-link" onclick="return confirm('削除してよろしいですか');" />
                     </td>
                 </form>
@@ -100,20 +105,17 @@
         }
         </tbody>
     </table>
+
+    <div class="text-end">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            前へ
+        </a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            次へ
+        </a>
+    </div>
 </div>
-
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-
-<a asp-action="Index"
-    asp-route-pageNumber="@(Model.PageIndex - 1)"
-    class="btn btn-default @prevDisabled">
-    前へ
-</a>
-<a asp-action="Index"
-    asp-route-pageNumber="@(Model.PageIndex + 1)"
-    class="btn btn-default @nextDisabled">
-    次へ
-</a>
