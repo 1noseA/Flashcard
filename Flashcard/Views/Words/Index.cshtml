@@ -13,15 +13,28 @@
 <link rel="stylesheet" href="~/css/Words/Index.css" asp-append-version="true" />
 <script src="~/js/Words/Index.js" asp-append-version="true"></script>
 
+@{
+    if (TempData["MsgClass"] != null)
+    {
+        <script>
+            window.onload = function () {
+                setTimeout(() => {
+                    alert('単語を追加しました。');
+                }, 1000);
+            }
+        </script>
+    }
+}
+
 <div class="content m-auto p-4" style="max-width:1200px">
     <h5 class="my-4">単語一覧</h5>
 
     <!-- 新規追加 -->
     <form asp-action="Create" class="needs-validation" novalidate>
         @{
-            <div class="invalid-feedback mb-3" style="display: block;">
-                @TempData["ErrorMsg"]
-            </div>
+                <div class="invalid-feedback mb-3" style="display: block;">
+                    @TempData["ErrorMsg"]
+                </div>
         }
         <div class="row mb-5 g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -113,3 +126,4 @@
         </a>
     </div>
 </div>
+

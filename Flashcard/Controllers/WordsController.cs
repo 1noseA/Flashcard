@@ -77,6 +77,9 @@ namespace Flashcard.Controllers
             words.CreatedAt = DateTime.Now;
             _context.Add(words);
             await _context.SaveChangesAsync();
+
+            TempData["MsgClass"] = "Create";
+
             return RedirectToAction(nameof(Index), pageNumber);
         }
 
