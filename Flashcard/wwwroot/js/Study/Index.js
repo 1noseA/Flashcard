@@ -9,7 +9,7 @@
 
 function studyBreak() {
     if (confirm('学習を終了します。よろしいですか')) {
-        location.href = './Next?btnName=break'
+        location.href = '/Study/Next?btnName=break'
     } else {
         return false;
     }

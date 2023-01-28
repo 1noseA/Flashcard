@@ -67,6 +67,13 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
+            // 値を持っていなかったらエラー画面に遷移する
+            if (TempData["CorrectAnswerCount"] == null)
+            {
+                TempData["ErrorMsg"] = "システムエラーが発生しました。再度ログインし直してください。";
+                return RedirectToAction("Error", "Error");
+            }
+
             // 保存データを取得
             viewModel.QuestionNo = (int)TempData["QuestionNo"];
             viewModel.CorrectAnswerCount = (int)TempData["CorrectAnswerCount"];
@@ -122,6 +129,13 @@ namespace Flashcard.Controllers
             if (_claim == null)
             {
                 return RedirectToAction("Index", "Account");
+            }
+
+            // 値を持っていなかったらエラー画面に遷移する
+            if (TempData["CorrectAnswerCount"] == null)
+            {
+                TempData["ErrorMsg"] = "システムエラーが発生しました。再度ログインし直してください。";
+                return RedirectToAction("Error", "Error");
             }
 
             // 保存データを取得

@@ -1,5 +1,11 @@
-﻿@{
+﻿@model Flashcard.ViewModels.CommonViewModel
+
+@{
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
+<div class="content m-auto p-4" style="max-width:900px">
+    <div class="p-5 border box-shadow" style="font-size:18px;letter-spacing:0.05em;">
+        @Model.ErrorMsg
+    </div>
+</div>
