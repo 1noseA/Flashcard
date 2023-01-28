@@ -116,7 +116,7 @@ namespace Flashcard.Controllers
 
         // 次画面遷移処理
         // Get: Study/Next
-        public IActionResult Next(StudyViewModel viewModel)
+        public IActionResult Next(StudyViewModel viewModel, string btnName)
         {
             // ログインしていなければログイン画面へ
             if (_claim == null)
@@ -133,8 +133,8 @@ namespace Flashcard.Controllers
             // 出題済みの問題を出題リストから除く
             viewModel.QuestionList.Remove(viewModel.QuestionList[0]);
 
-            // 出題リストが0だったら結果画面に遷移する
-            if (viewModel.QuestionList.Count < 1)
+            // 中断ボタン押下もしくは出題リストが0だったら結果画面に遷移する
+            if (btnName == "break" || viewModel.QuestionList.Count < 1)
             {
                 return RedirectToAction("Index", "Result");
             }
