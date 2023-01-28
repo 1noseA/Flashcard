@@ -24,20 +24,24 @@
             }
         }
     </div>
+    <div class="row d-flex mt-4">
+        <div class="col-2">
+            <button type="button" class="btnLight box-shadow w-100" onclick="location.href='./'">戻る</button>
+        </div>
     @{
         if (@Model.StudyDate != null)
         {
-            <div class="row d-flex justify-content-end mt-4">
-
-                <form asp-action="AllDelete" class="col-2">
-                    <button type="submit" class="btnLight w-100 box-shadow" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
+            <div class="col-10 d-flex justify-content-end">
+                <form asp-action="AllDelete">
+                    <button type="submit" class="btnLight box-shadow me-2" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
                 </form>
-                <form asp-action="DownloadFile" class="col-2">
-                    <button type="submit" class="btnLight w-100 box-shadow">Excel出力</button>
+                <form asp-action="DownloadFile">
+                    <button type="submit" class="btnLight box-shadow">Excel出力</button>
                 </form>
             </div>
         }
     }
+    </div>
 </div>
 
 <script>

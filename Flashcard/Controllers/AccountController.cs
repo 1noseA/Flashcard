@@ -20,10 +20,10 @@ namespace Flashcard.Controllers
         public IActionResult Index()
         {
             // 認証済みであれば単語一覧画面へ遷移する
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction(nameof(WordsController.Index), "Words");
-            //}
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(nameof(WordsController.Index), "Words");
+            }
             return View(viewModel);
         }
 
