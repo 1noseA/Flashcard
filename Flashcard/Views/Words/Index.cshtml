@@ -23,7 +23,7 @@
                 @TempData["ErrorMsg"]
             </div>
         }
-        <div class="row mb-5 g-3 align-items-center">
+        <div class="row mb-5 g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-3">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
@@ -40,7 +40,7 @@
             <div class="col-2">
                 <input type="hidden" name="UserId" value="@TempData["UserId"]" />
                 <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
-                <input type="submit" value="追加" class="btnCommon w-100 box-shadow" />
+                <button type="submit" class="btnCommon w-100 box-shadow">追加</button>
             </div>
         </div>
     </form>

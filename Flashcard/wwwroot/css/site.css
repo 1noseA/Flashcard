@@ -48,6 +48,14 @@ a {
     width: 80%;
 }
 
+.mt-45 {
+    margin-top: 2em !important;
+}
+
+.mb-45 {
+    margin-bottom: 2em !important;
+}
+
 .text-white {
     color: #FFF;
 }
@@ -80,11 +88,7 @@ a {
         box-shadow: none !important;
     }
 
-/*nav.navbar, footer {
-    background-color: #c2a5b0 !important;
-}*/
 .navbar-brand {
-    /*color: #61425e !important;*/
     font-weight: bold;
 }
 
@@ -93,8 +97,7 @@ a {
     border: none;
     background-color: #61425e;
     color: #FFF;
-    padding: 0.5em;
-    margin-bottom: 3px;
+    padding: 7px 24px;
 }
 
 .btn:focus {
@@ -106,8 +109,11 @@ a {
     border: none;
     background-color: #666;
     color: #FFF;
-    padding: 0.5em;
-    margin-bottom: 3px;
+    padding: 7px 24px;
+}
+
+.btnBig {
+    padding: 10px 24px !important;
 }
 
 .footer {
