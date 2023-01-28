@@ -67,11 +67,13 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // 値を持っていなかったらエラー画面に遷移する
+            // 値を持っていなかったら
             if (TempData["CorrectAnswerCount"] == null)
             {
-                TempData["ErrorMsg"] = "システムエラーが発生しました。再度ログインし直してください。";
-                return RedirectToAction("Error", "Error");
+                // エラー画面に遷移する
+                //TempData["ErrorMsg"] = "システムエラーが発生しました。再度ログインし直してください。";
+                //return RedirectToAction("Error", "Error");
+                return RedirectToAction("Index", "Words");
             }
 
             // 保存データを取得
@@ -131,11 +133,13 @@ namespace Flashcard.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // 値を持っていなかったらエラー画面に遷移する
+            // 値を持っていなかったら
             if (TempData["CorrectAnswerCount"] == null)
             {
-                TempData["ErrorMsg"] = "システムエラーが発生しました。再度ログインし直してください。";
-                return RedirectToAction("Error", "Error");
+                // エラー画面に遷移する
+                //TempData["ErrorMsg"] = "システムエラーが発生しました。再度ログインし直してください。";
+                //return RedirectToAction("Error", "Error");
+                return RedirectToAction("Index", "Words");
             }
 
             // 保存データを取得
