@@ -5,8 +5,8 @@
 }
 
 <div class="content m-auto p-4" style="max-width:600px">
-    <h5 class="my-4">ログイン</h5>
-    <div class="p-5 border box-shadow">
+    <h5 class="my-3">ログイン</h5>
+    <div class="p-5 border box-shadow card">
         @{
             if (!string.IsNullOrEmpty(Model.ErrorMsg)) {
                 <div class="invalid-feedback mb-3" style="display: block;">
@@ -29,10 +29,10 @@
                     </div>
                 </div>
                 <div class="text-center mt-5">
-                    <input type="submit" value="ログイン" class="btnCommon btnBig w-80 box-shadow" name="btnName" />
+                    <input type="submit" value="ログイン" class="btnCommon btnGreen btnBig w-80 box-shadow" name="btnName" />
                 </div>
                 <div class="text-center mt-4">
-                    <input type="submit" value="テストログイン" class="btnLight btnBig w-80 box-shadow" name="btnName" />
+                    <input type="submit" value="テストログイン" class="btnCommon btnBlue btnBig w-80 box-shadow" name="btnName" />
                 </div>
             </form>
         }

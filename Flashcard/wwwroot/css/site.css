@@ -1,22 +1,13 @@
 html {
-  font-size: 14px;
-  color: #333;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
-  /*background-color: #f9eee8;*/
+    margin-bottom: 60px;
+    font-size: 14px;
+    color: #333;
+    font-family: "ü‡ÉSÉVÉbÉN Medium", "Yu Gothic Medium", "ü‡ÉSÉVÉbÉNëÃ", "YuGothic", "ÉqÉâÉMÉmäpÉS ProN W3", "Hiragino Kaku Gothic ProN", "ÉÅÉCÉäÉI", "Meiryo", "verdana", sans-serif;
 }
 
 a {
@@ -90,6 +81,8 @@ a {
 
 .navbar-brand {
     font-weight: bold;
+    letter-spacing: 0.05em;
+    font-size: 18px;
 }
 
 .btnCommon {
@@ -100,16 +93,25 @@ a {
     padding: 7px 24px;
 }
 
-.btn:focus {
-    box-shadow: none !important;
+    .btnCommon:hover {
+        box-shadow: none !important;
+        opacity: 0.8;
+    }
+
+.btnGreen {
+    background-color: #70A19F;
 }
 
-.btnLight {
-    border-radius: 8px;
-    border: none;
-    background-color: #666;
-    color: #FFF;
-    padding: 7px 24px;
+.btnBlue {
+    background-color: #6EA4CA;
+}
+
+.btnGray {
+    background-color: #9790a4;
+}
+
+.btnRed {
+    background-color: #c97586;
 }
 
 .btnBig {

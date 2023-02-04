@@ -11,7 +11,7 @@
         @{
             if (@Model.StudyDate != null)
             {
-                <h5 class="mb-5 text-center">学習履歴</h5>
+                <h5 class="mb-4 text-center">学習履歴</h5>
 
                 <!-- グラフ -->
                 <div>
@@ -24,19 +24,19 @@
             }
         }
     </div>
-    <div class="row d-flex mt-4">
+    <div class="row d-flex mt-45">
         <div class="col-2">
-            <button type="button" class="btnLight box-shadow w-100" onclick="location.href='./'">戻る</button>
+            <button type="button" class="btnCommon btnGray box-shadow w-100" onclick="location.href='./'">戻る</button>
         </div>
     @{
         if (@Model.StudyDate != null)
         {
             <div class="col-10 d-flex justify-content-end">
                 <form asp-action="AllDelete">
-                    <button type="submit" class="btnLight box-shadow me-2" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
+                        <button type="submit" class="btnCommon btnRed box-shadow me-2" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
                 </form>
                 <form asp-action="DownloadFile">
-                    <button type="submit" class="btnLight box-shadow">Excel出力</button>
+                    <button type="submit" class="btnCommon btnGreen box-shadow">Excel出力</button>
                 </form>
             </div>
         }
@@ -54,12 +54,19 @@
             datasets: [{
                 label: '正答数(回)',
                 data: [@Html.Raw(@Model.CorrectAnswerCount)], // 学習日時ごとの正答数
+                order: 2,
+                borderColor: '#a6cee3',
+                backgroundColor: '#a6cee3',
+                hoverBackgroundColor: '#a6cee3',
                 borderWidth: 1,
                 yAxisID: 'first-y-axis'
             }, {
                 label: '正答率(%)',
                 type: "line", // 折れ線グラフ
                 data: [@Html.Raw(@Model.CorrectAnswerRate)], // 学習日時ごとの正答率
+                order: 1, // 折れ線グラフが前面になるように
+                borderColor: '#1f78b4',
+                backgroundColor: '#1f78b4',
                 yAxisID: 'second-y-axis'
             }]
         },
