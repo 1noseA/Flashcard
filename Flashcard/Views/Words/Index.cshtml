@@ -116,12 +116,12 @@
     <div class="text-end">
         <a asp-action="Index"
            asp-route-pageNumber="@(Model.PageIndex - 1)"
-           class="btn btn-default @prevDisabled">
+           class="btn @prevDisabled">
             前へ
         </a>
         <a asp-action="Index"
            asp-route-pageNumber="@(Model.PageIndex + 1)"
-           class="btn btn-default @nextDisabled">
+           class="btn @nextDisabled">
             次へ
         </a>
     </div>

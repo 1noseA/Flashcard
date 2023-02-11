@@ -1,22 +1,15 @@
-.edit {
-    font-size: 16px;
-}
-
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-    .table th {
-        display: none;
-    }
-
-    .table td {
-        border-bottom: none;
-        display: block;
-        width: 100%;
+    .w-table {
+        width: 560px
     }
 }
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+    .content {
+        width: 100%;
+    }
 }
 
 /* Medium devices (tablets, less than 992px) */
