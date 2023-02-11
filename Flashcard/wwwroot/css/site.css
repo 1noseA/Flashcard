@@ -125,3 +125,50 @@ a {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* グラフ */
+.canvas-container {
+    position: relative;
+    width: calc(100% - 40px);
+    height: 300px;
+    overflow: hidden;
+    margin: 20px;
+}
+
+/* レスポンシブ */
+.w-variable {
+    width: 80%;
+}
+.w-90-45-30 {
+    width: 30%;
+}
+
+/* X-Small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .w-variable {
+        width: 100%;
+    }
+    .w-90-45-30 {
+        width: 96% !important;
+    }
+    .table th {
+        display: none;
+    }
+    .table td {
+        border-bottom: none;
+        display: block;
+        width: 100%;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .w-90-45-30 {
+        width: 45%;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+}
+

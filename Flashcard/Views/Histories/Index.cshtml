@@ -7,14 +7,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="content m-auto p-4" style="max-width:900px">
-    <div class="p-5 border box-shadow">
+    <div class="p-3 p-sm-5 border box-shadow">
         @{
             if (@Model.StudyDate != null)
             {
                 <h5 class="mb-4 text-center">学習履歴</h5>
 
                 <!-- グラフ -->
-                <div>
+                <div class="canvas-container">
                     <canvas id="myChart"></canvas>
                 </div>
             }
@@ -24,20 +24,22 @@
             }
         }
     </div>
-    <div class="row d-flex mt-45">
-        <div class="col-2">
+    <div class="row d-sm-flex mt-45">
+        <div class="col-sm-4 col-md-2 order-2 order-md-1 mt-2 mt-sm-0 text-end text-md-start">
             <button type="button" class="btnCommon btnGray box-shadow w-100" onclick="location.href='./'">戻る</button>
         </div>
     @{
         if (@Model.StudyDate != null)
         {
-            <div class="col-10 d-flex justify-content-end">
+            <div class="col-sm-8 col-md-10 order-1 order-md-2 d-sm-flex justify-content-sm-end">
                 <form asp-action="AllDelete">
-                        <button type="submit" class="btnCommon btnRed box-shadow me-2" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
+                        <button type="submit" class="btnCommon btnRed box-shadow me-2 w-100" onclick="return confirm('履歴を全て削除してよろしいですか');">履歴の削除</button>
                 </form>
-                <form asp-action="DownloadFile">
-                    <button type="submit" class="btnCommon btnGreen box-shadow">Excel出力</button>
-                </form>
+                <div class="mt-2 mt-sm-0">
+                    <form asp-action="DownloadFile">
+                        <button type="submit" class="btnCommon btnGreen box-shadow w-100">Excel出力</button>
+                    </form>
+                </div>
             </div>
         }
     }
@@ -72,13 +74,15 @@
         },
         options: {
             animation: false, // チャートがすぐに表示されるようにアニメーションをオフにする
+            responsive: true, // レスポンシブ
+            maintainAspectRatio: false,
             plugins: {
                 //legend: { // 凡例（今回は表示にしている）
                 //    display: false
                 //},
                 tooltip: { // ツールチップ非表示
                     enabled: false
-                }
+                },
             }, // このかっこが足りなかったのが問題だった
             scales: {
                 'first-y-axis': { // y軸1つ目
@@ -112,5 +116,12 @@
                 }
             }
         }
+    });
+
+    $(function () {
+        var container = $('.canvas-container');
+        var ctx = $('#myChart');
+        ctx.attr('width', container.width());
+        ctx.attr('height', 300);
     });
 </script>

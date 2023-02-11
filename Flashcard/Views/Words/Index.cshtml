@@ -38,19 +38,19 @@
         }
         <div class="row mb-5 g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="col-3">
+            <div class="col-sm-3">
                 <input type="text" name="Word" class="form-control box-shadow" placeholder="単語" required />
                 <div class="invalid-feedback" style="display: block;">
                     <span asp-validation-for="@words.Word"></span>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-sm-5">
                 <input type="text" name="Meaning" class="form-control box-shadow" placeholder="意味" required />
                 <div class="invalid-feedback" style="display: block;">
                     <span asp-validation-for="@words.Meaning"></span>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <input type="hidden" name="UserId" value="@TempData["UserId"]" />
                 <input type="hidden" name="pageNumber" value="@Model.PageIndex" />
                 <button type="submit" class="btnCommon btnGreen w-100 box-shadow">追加</button>
@@ -62,10 +62,10 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th class="w-30 ps-5">
+                <th class="w-30 text-center">
                     単語
                 </th>
-                <th class="w-40">
+                <th class="w-40 text-center">
                     意味
                 </th>
                 <th class="w-20"></th>
@@ -76,7 +76,7 @@
         @foreach (var item in Model) {
             <tr>
                 <form asp-action="Edit" asp-route-id="@item.WordId" method="post">
-                    <td class="ps-5">
+                    <td class="px-4">
                         <span class="word">
                             @Html.DisplayFor(modelItem => item.Word)
                         </span>
@@ -84,7 +84,7 @@
                             <input asp-for="@item.Word" class="form-control" name="Word" />
                         </span>
                     </td>
-                    <td>
+                    <td class="px-4">
                         <span class="meaning">
                             @Html.DisplayFor(modelItem => item.Meaning)
                         </span>
