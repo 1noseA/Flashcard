@@ -122,10 +122,10 @@ namespace Flashcard.Controllers
                                             new DataColumn("正答数(回)"),
                                             new DataColumn("正答率(％)")});
             // 取得したデータをDataTableにコピー
-            double rate = 0;
+            string rate = null;
             foreach (var h in histories)
             {
-                rate = (double)h.CorrectAnswerCount / (double)h.StudyCount * 100;
+                rate = ((double)h.CorrectAnswerCount / (double)h.StudyCount * 100).ToString("F1");
                 dt.Rows.Add(h.StudyDate, h.StudyCount, h.CorrectAnswerCount, rate);
             }
             // ワークブックを新規作成
