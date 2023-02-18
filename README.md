@@ -5,13 +5,13 @@
 現場で使用しているASP.NETに慣れるためと得た知識のアウトプットのため。
 
 ## 使用技術
-・C# 10.0
-・ASP.NET Core MVC（.NET6.0.10）
-・EntityFrameworkCore 6.0.7
-・PostgreSQL 15
-・jQuery 3.5.1
-・Chart.js 4.2.1
-・Bootstrap 5.1.0
+- C# 10.0
+- ASP.NET Core MVC（.NET6.0.10）
+- EntityFrameworkCore 6.0.7
+- PostgreSQL 15
+- jQuery 3.5.1
+- Chart.js 4.2.1
+- Bootstrap 5.1.0
 
 ## 画面・機能
 【認証】<br>
